@@ -14,12 +14,12 @@ import android.widget.Toast;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WebView_Theory extends Fragment {
+public class Chapter1 extends Fragment {
 
     WebView mWeb_one;
     View view;
     String url;
-    public WebView_Theory() {
+    public Chapter1() {
         // Required empty public constructor
     }
 
@@ -29,10 +29,9 @@ public class WebView_Theory extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_web_view__theory, container, false);
 
-        url = "file:///android_asset/Chapter_One_Th.html";
+        url = "file:///android_asset/Chapter1.html";
         mWeb_one = view.findViewById(R.id.mWeb_one);
         mWeb_one.getSettings().setBuiltInZoomControls(true);
-        Toast.makeText(getActivity(), url, Toast.LENGTH_LONG).show();
         mWeb_one.loadUrl(url);
 
         return view;
