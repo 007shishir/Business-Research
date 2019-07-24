@@ -2,6 +2,9 @@ package com.mme.saif_win10.businessresearch;
 
 import android.app.FragmentTransaction;
 import android.arch.persistence.room.Room;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,12 +20,15 @@ import android.view.MenuItem;
 
 import com.mme.saif_win10.businessresearch.mcqRoomDatabase.Mcq_Database;
 
+import java.util.Timer;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Chapter6 theoryURL;
     OptionsMain optionsMain;
     FragmentTransaction fr;
+    private ConnectivityManager connectivityManager;
     public static Mcq_Database mcq_database;
 
     @Override
@@ -37,15 +43,18 @@ public class MainActivity extends AppCompatActivity
         theoryURL = new Chapter6();
         optionsMain = new OptionsMain();
 
+// To check internet connectivity
+        connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        networkCheck();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -119,5 +128,58 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void informUser(String message){
+        if (message.equalsIgnoreCase("no")){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2000);
+                        assert connectivityManager != null;
+                        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                        if (networkInfo!=null && networkInfo.isConnected()){
+                            networkCheck();
+                        }else {
+                            informUser("no");
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        }else {
+//            Snackbar.make(findViewById(R.id.mMainContent), message, Snackbar.LENGTH_SHORT).show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(3000);
+                        assert connectivityManager != null;
+                        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                        if (networkInfo!=null && networkInfo.isConnected()){
+                            informUser("yes");
+                        }else {
+                            networkCheck();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+    public void networkCheck(){
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo!=null && networkInfo.isConnected()){
+            Snackbar.make(findViewById(R.id.mMainContent), "Internet is Available...", Snackbar.LENGTH_SHORT).show();
+            informUser("yes");
+        }else {
+            Snackbar.make(findViewById(R.id.mMainContent), "No Network Connection...", Snackbar.LENGTH_INDEFINITE).show();
+            informUser("no");
+        }
     }
 }
