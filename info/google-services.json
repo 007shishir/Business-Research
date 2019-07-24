@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "235397746085",
+    "firebase_url": "https://businessresearch-ad180.firebaseio.com",
+    "project_id": "businessresearch-ad180",
+    "storage_bucket": "businessresearch-ad180.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235397746085:android:863a230f5d7f9339",
+        "android_client_info": {
+          "package_name": "com.mme.saif_win10.businessresearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235397746085-t5ntj1haoff5k3ao7nptpthjrv1l36jn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mme.saif_win10.businessresearch",
+            "certificate_hash": "5006c8cf90aa91ee28557903564f079a823db27e"
+          }
+        },
+        {
+          "client_id": "235397746085-rd2o4s1c7pqf9skd15r6q1gg0esk3ggm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI6qOSMs1kE5hS5eklDQu2MGHNROhGHYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235397746085-rd2o4s1c7pqf9skd15r6q1gg0esk3ggm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

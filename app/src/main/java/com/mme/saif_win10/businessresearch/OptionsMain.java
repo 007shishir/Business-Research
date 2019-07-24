@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +20,8 @@ import android.widget.Toast;
 public class OptionsMain extends Fragment implements View.OnClickListener {
 
     View view;
-    TextView cTxt_one, cTxt_two, cTxt_three, cTxt_four, cTxt_five, cTxt_six, cTxt_seven, cTxt_eight;
+    TextView cTxt_one, cTxt_two, cTxt_three, cTxt_four, cTxt_five, cTxt_six, cTxt_seven, cTxt_eight,
+            mTxt_mcq, mTxt_memorize;
     LinearLayout mLL_full_view;
     String url;
     FragmentTransaction fr;
@@ -44,6 +47,9 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
         cTxt_seven = view.findViewById(R.id.cTxt_seven);
         cTxt_eight = view.findViewById(R.id.cTxt_eight);
 
+        mTxt_mcq = view.findViewById(R.id.mTxt_mcq);
+        mTxt_memorize = view.findViewById(R.id.mTxt_memorize);
+
         cTxt_one.setOnClickListener(this);
         cTxt_two.setOnClickListener(this);
         cTxt_three.setOnClickListener(this);
@@ -52,6 +58,9 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
         cTxt_six.setOnClickListener(this);
         cTxt_seven.setOnClickListener(this);
         cTxt_eight.setOnClickListener(this);
+
+        mTxt_mcq.setOnClickListener(this);
+        mTxt_memorize.setOnClickListener(this);
 
         return view;
     }
@@ -97,6 +106,16 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
             case R.id.cTxt_eight:
                 fr = getFragmentManager().beginTransaction();
                 fr.replace(R.id.fragment_container, new Chapter8());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.mTxt_mcq:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new McqRecV());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.mTxt_memorize:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new MemorizeRecV());
                 fr.addToBackStack(null).commit();
                 break;
             default:

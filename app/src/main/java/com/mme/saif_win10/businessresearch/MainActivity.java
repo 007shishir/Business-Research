@@ -1,6 +1,7 @@
 package com.mme.saif_win10.businessresearch;
 
 import android.app.FragmentTransaction;
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,12 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mme.saif_win10.businessresearch.mcqRoomDatabase.Mcq_Database;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Chapter6 theoryURL;
     OptionsMain optionsMain;
     FragmentTransaction fr;
+    public static Mcq_Database mcq_database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mcq_database = Room.databaseBuilder(getApplicationContext(), Mcq_Database.class, "McqDb").allowMainThreadQueries().build();
 
         theoryURL = new Chapter6();
         optionsMain = new OptionsMain();
