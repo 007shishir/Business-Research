@@ -21,7 +21,7 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
 
     View view;
     TextView cTxt_one, cTxt_two, cTxt_three, cTxt_four, cTxt_five, cTxt_six, cTxt_seven, cTxt_eight,
-            mTxt_mcq, mTxt_memorize;
+            cTxt_nine, cTxt_ten, cTxt_11, cTxt_12, cTxt_13, cTxt_14, cTxt_15, cTxt_16, mTxt_mcq, mTxt_memorize;
     LinearLayout mLL_full_view;
     String url;
     FragmentTransaction fr;
@@ -47,6 +47,16 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
         cTxt_seven = view.findViewById(R.id.cTxt_seven);
         cTxt_eight = view.findViewById(R.id.cTxt_eight);
 
+
+        cTxt_nine = view.findViewById(R.id.cTxt_nine);
+        cTxt_ten = view.findViewById(R.id.cTxt_ten);
+        cTxt_11 = view.findViewById(R.id.cTxt_11);
+        cTxt_12 = view.findViewById(R.id.cTxt_12);
+        cTxt_13 = view.findViewById(R.id.cTxt_13);
+        cTxt_14 = view.findViewById(R.id.cTxt_14);
+        cTxt_15 = view.findViewById(R.id.cTxt_15);
+        cTxt_16 = view.findViewById(R.id.cTxt_16);
+
         mTxt_mcq = view.findViewById(R.id.mTxt_mcq);
         mTxt_memorize = view.findViewById(R.id.mTxt_memorize);
 
@@ -58,6 +68,15 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
         cTxt_six.setOnClickListener(this);
         cTxt_seven.setOnClickListener(this);
         cTxt_eight.setOnClickListener(this);
+
+        cTxt_nine.setOnClickListener(this);
+        cTxt_ten.setOnClickListener(this);
+        cTxt_11.setOnClickListener(this);
+        cTxt_12.setOnClickListener(this);
+        cTxt_13.setOnClickListener(this);
+        cTxt_14.setOnClickListener(this);
+        cTxt_15.setOnClickListener(this);
+        cTxt_16.setOnClickListener(this);
 
         mTxt_mcq.setOnClickListener(this);
         mTxt_memorize.setOnClickListener(this);
@@ -116,6 +135,46 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
             case R.id.mTxt_memorize:
                 fr = getFragmentManager().beginTransaction();
                 fr.replace(R.id.fragment_container, new MemorizeRecV());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.cTxt_nine:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Chapter9());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.cTxt_ten:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Chapter10());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.cTxt_11:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Chapter11());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.cTxt_12:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Chapter12());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.cTxt_13:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Chapter13());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.cTxt_14:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Chapter14());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.cTxt_15:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Chapter15());
+                fr.addToBackStack(null).commit();
+                break;
+            case R.id.cTxt_16:
+                fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Chapter16());
                 fr.addToBackStack(null).commit();
                 break;
             default:
