@@ -1,9 +1,12 @@
 package com.mme.saif_win10.businessresearch.mcqRoomDatabase;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
@@ -29,13 +32,14 @@ import com.mme.saif_win10.businessresearch.R;
 import java.util.List;
 import java.util.Objects;
 
-public class McqVersion1 extends AppCompatActivity{
+public class McqVersion1 extends AppCompatActivity {
 
     //geting mcq_viewmodel object
     private Mcq_ViewModel mcq_viewModel;
     private ProgressBar progressBar2, progressPrimary, progressLearning, progressMaster;
     private Handler handler = new Handler();
 
+    private ConnectivityManager connectivityManager;
 
     String mPost_key;
     String child_Name;
@@ -109,6 +113,8 @@ public class McqVersion1 extends AppCompatActivity{
         setContentView(R.layout.activity_mcq_version1_layout);
         Firebase.setAndroidContext(this);
 
+        connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+
 //        mAdView = findViewById(R.id.mAdView);
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
@@ -160,70 +166,143 @@ public class McqVersion1 extends AppCompatActivity{
 
         updateLevelStatus(level);
         eachQuestStatus();
+        headerTopic();
 
-        //For test purpose only
+        networkCheck();
         readFromRoomDatabase();
-        //updateQuestion();
+
 
     }
 
-//    public void headerTopic() {
-//        switch (child_Name) {
-//            case "bcs_evs":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.evs));
-//                break;
-//            case "bcs_idioms_phrases":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.idiomsAnsPhrase));
-//                break;
-//            case "bcs_bvs":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.bvs));
-//                break;
-//
-//            case "general_s":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.general_science));
-//                break;
-//            case "bcs_geo":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.geography));
-//                break;
-//            case "CV_bcs_international":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.international));
-//                break;
-//            case "bcs_it":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.computer));
-//                break;
-//            case "bcs_math":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.mathematics));
-//                break;
-//            case "bcs_mental":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.mental));
-//                break;
-//            case "bcs_value":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.morality));
-//                break;
-//            case "bng_grammar":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.bng_grammar));
-//                break;
-//            case "current_world_bd":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.current_world_bd));
-//                break;
-//            case "current_world_int":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.current_world_int));
-//                break;
-//            case "eng_grammar":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.eng_grammar));
-//                break;
-//            case "eng_vocab":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.vocabulary));
-//                break;
-//            case "gov_bank":
-//                mTxt_Header_topic.setText(getResources().getString(R.string.govt_bank));
-//                break;
-//            default:
-//                mTxt_Header_topic.setText("Report ERROR!");
-//                break;
-//        }
-//
-//    }
+    private void networkCheck() {
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            Snackbar.make(findViewById(R.id.mcqView), "Internet is Available...", Snackbar.LENGTH_LONG).show();
+        } else {
+            Snackbar.make(findViewById(R.id.mcqView), "No Network Connection...", Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void headerTopic() {
+        switch (mPost_key) {
+            case "10000":
+                mTxt_Header_topic.setText("general");
+                break;
+            case "10010":
+                mTxt_Header_topic.setText("Chapter 1");
+                break;
+            case "10011":
+                mTxt_Header_topic.setText("Chapter 1");
+                break;
+            case "10020":
+                mTxt_Header_topic.setText("Chapter 2");
+                break;
+            case "10021":
+                mTxt_Header_topic.setText("Chapter 2");
+                break;
+            case "10030":
+                mTxt_Header_topic.setText("Chapter 3");
+                break;
+            case "10031":
+                mTxt_Header_topic.setText("Chapter 3");
+                break;
+            case "10040":
+                mTxt_Header_topic.setText("Chapter 4");
+                break;
+            case "10041":
+                mTxt_Header_topic.setText("Chapter 4");
+                break;
+            case "10050":
+                mTxt_Header_topic.setText("Chapter 5");
+                break;
+            case "10051":
+                mTxt_Header_topic.setText("Chapter 5");
+                break;
+            case "10060":
+                mTxt_Header_topic.setText("Chapter 6");
+                break;
+            case "10061":
+                mTxt_Header_topic.setText("Chapter 6");
+                break;
+            case "10062":
+                mTxt_Header_topic.setText("Chapter 6");
+                break;
+            case "10070":
+                mTxt_Header_topic.setText("Chapter 7");
+                break;
+            case "10071":
+                mTxt_Header_topic.setText("Chapter 7");
+                break;
+            case "10072":
+                mTxt_Header_topic.setText("Chapter 7");
+                break;
+            case "10080":
+                mTxt_Header_topic.setText("Chapter 8");
+                break;
+            case "10081":
+                mTxt_Header_topic.setText("Chapter 8");
+                break;
+            case "10082":
+                mTxt_Header_topic.setText("Chapter 8");
+                break;
+            case "10090":
+                mTxt_Header_topic.setText("Chapter 9");
+                break;
+            case "10091":
+                mTxt_Header_topic.setText("Chapter 9");
+                break;
+            case "10092":
+                mTxt_Header_topic.setText("Chapter 9");
+                break;
+            case "10100":
+                mTxt_Header_topic.setText("Chapter 10");
+                break;
+            case "10101":
+                mTxt_Header_topic.setText("Chapter 10");
+                break;
+            case "10110":
+                mTxt_Header_topic.setText("Chapter 11");
+                break;
+            case "10111":
+                mTxt_Header_topic.setText("Chapter 11");
+                break;
+            case "10120":
+                mTxt_Header_topic.setText("Chapter 12");
+                break;
+            case "10121":
+                mTxt_Header_topic.setText("Chapter 12");
+                break;
+            case "10130":
+                mTxt_Header_topic.setText("Chapter 13");
+                break;
+            case "10131":
+                mTxt_Header_topic.setText("Chapter 13");
+                break;
+            case "10140":
+                mTxt_Header_topic.setText("Chapter 14");
+                break;
+            case "10141":
+                mTxt_Header_topic.setText("Chapter 14");
+                break;
+            case "10150":
+                mTxt_Header_topic.setText("Chapter 15");
+                break;
+            case "10151":
+                mTxt_Header_topic.setText("Chapter 15");
+                break;
+            case "10160":
+                mTxt_Header_topic.setText("Chapter 16");
+                break;
+            case "10161":
+                mTxt_Header_topic.setText("Chapter 16");
+                break;
+            default:
+                mTxt_Header_topic.setText("MCQ");
+                break;
+        }
+
+    }
 
     public void updateLevelEachQuestionStatus(int a) {
         if (a < 2) {
@@ -270,13 +349,11 @@ public class McqVersion1 extends AppCompatActivity{
     public void updateQuestion() {
 
         //it reads from room database and update room database
-
         //The method commonLevelStatus() Status creates problem here; do not use it here!
         //commonLevelStatus();
 
         idEachQuest(child_Name, mPost_key, questionN[mQuestNum - 1]);
 
-//        progressBar2.setVisibility(View.VISIBLE);
         progreesBarBackgroundVISIBLE();
         disableSUBMITnextPREV();
 //        https://businessresearch-ad180.firebaseio.com/
@@ -285,13 +362,10 @@ public class McqVersion1 extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 totalQ = dataSnapshot.getValue(String.class);
-
                 initialState();
                 totalQuestion = Integer.parseInt(totalQ);
-
                 //For firebase use only
                 total_N_Q = totalQuestion;
-
                 //beware, this method might create problem!
                 commonLevelStatus();
             }
@@ -401,7 +475,6 @@ public class McqVersion1 extends AppCompatActivity{
 
                 //For database only
                 o4 = option4;
-//                progressBar2.setVisibility(View.GONE);
                 progressBarBackgroundGONE();
                 enableSUBMITnextPREV();
             }
@@ -416,7 +489,6 @@ public class McqVersion1 extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-
                 String mNextQuest = "NEXT";
                 mBtn_submit.setText(mNextQuest);
                 mBtn_submit.setOnClickListener(new View.OnClickListener() {
@@ -426,7 +498,6 @@ public class McqVersion1 extends AppCompatActivity{
                         String mAnswer = "ANSWER";
                         String mExplanation = "Explanation will be here";
                         String mRightvWrong = "Check";
-
 
                         //set Background color for RIGHT v WRONG indicator Text box
                         mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_answer_background));
@@ -455,10 +526,8 @@ public class McqVersion1 extends AppCompatActivity{
                         } else {
                             readFromRoomDatabase();
                         }
-
                     }
                 });
-
 
                 checkOptionChoice();
                 progreesBarBackgroundVISIBLE();
@@ -1503,7 +1572,6 @@ public class McqVersion1 extends AppCompatActivity{
                 }
                 level_question = mqe.getLevel_question();
                 updateLevelEachQuestionStatus(level_question);
-
 
 
                 totalQuestion = mqe.getTotal_N_Q();
@@ -3031,9 +3099,9 @@ public class McqVersion1 extends AppCompatActivity{
         }
     }
 
-    public void countPriLernMast (){
+    public void countPriLernMast() {
 
-        final String customID = child_Name + "_" + mPost_key + "_"+"%";
+        final String customID = child_Name + "_" + mPost_key + "_" + "%";
 
         new Thread(new Runnable() {
             @Override
@@ -3055,9 +3123,9 @@ public class McqVersion1 extends AppCompatActivity{
                         progressLearning.setProgress(countLearning);
                         progressMaster.setProgress(countMaster);
 
-                        String textPr = "Primary: "+String.valueOf(countPrimary)+" (out of "+String.valueOf(totalQuestion)+")";
-                        String textLr = "Learning: "+String.valueOf(countLearning)+" (out of "+String.valueOf(totalQuestion)+")";
-                        String textMs = "Master: "+String.valueOf(countMaster)+" (out of "+String.valueOf(totalQuestion)+")";
+                        String textPr = "Primary: " + String.valueOf(countPrimary) + " (out of " + String.valueOf(totalQuestion) + ")";
+                        String textLr = "Learning: " + String.valueOf(countLearning) + " (out of " + String.valueOf(totalQuestion) + ")";
+                        String textMs = "Master: " + String.valueOf(countMaster) + " (out of " + String.valueOf(totalQuestion) + ")";
 
                         mPrimary_Text.setText(textPr);
                         mLearning_Text.setText(textLr);

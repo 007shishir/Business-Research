@@ -1,12 +1,15 @@
 package com.mme.saif_win10.businessresearch;
 
 import android.app.Activity;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +28,8 @@ import com.mme.saif_win10.businessresearch.R;
 
 import com.mme.saif_win10.businessresearch.mcqRoomDatabase.McqVersion1;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +39,7 @@ public class McqRecV extends Fragment {
     private RecyclerView mRecycler_Mcq;
     private DatabaseReference mDatabase;
     private View v;
+    private ConnectivityManager connectivityManager;
 
     public McqRecV() {
         // Required empty public constructor
@@ -45,6 +51,7 @@ public class McqRecV extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.activity_mcq_rec_v, container, false);
 //        mDatabase = FirebaseDatabase.getInstance().getReference().child("busResearch");
+        connectivityManager = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("busResearch");
         mDatabase.keepSynced(false);
         mRecycler_Mcq = v.findViewById(R.id.mRecycler_Mcq);
@@ -70,11 +77,17 @@ public class McqRecV extends Fragment {
                         viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(getActivity(), McqVersion1.class);
-                                intent.putExtra("key_name", post_key);
-                                intent.putExtra("childName", "busResearch");
-                                Toast.makeText(getContext(), "Please make sure you turn off the rotation of your device", Toast.LENGTH_LONG).show();
-                                startActivity(intent);
+                                assert connectivityManager != null;
+                                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                                if (networkInfo != null && networkInfo.isConnected()) {
+                                    Intent intent = new Intent(getActivity(), McqVersion1.class);
+                                    intent.putExtra("key_name", post_key);
+                                    intent.putExtra("childName", "busResearch");
+                                    Toast.makeText(getContext(), "Please make sure you turn off the rotation of your device", Toast.LENGTH_LONG).show();
+                                    startActivity(intent);
+                                } else {
+                                    Snackbar.make(getActivity().findViewById(R.id.drawer_layout), "No Network Connection...", Snackbar.LENGTH_LONG).show();
+                                }
                             }
                         });
 
