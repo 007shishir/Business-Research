@@ -2,6 +2,8 @@ package com.mme.saif_win10.businessresearch.memorizeRoomDatabase;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MemorizeVersion1 extends AppCompatActivity {
     Memorize_ViewModel viewModel;
     boolean clicked;
+    private ConnectivityManager connectivityManager;
 
     private ProgressBar progressBar2, progressPrimary, progressLearning, progressMaster;
     private Handler handler = new Handler();
@@ -40,7 +43,8 @@ public class MemorizeVersion1 extends AppCompatActivity {
     private int totalPoint;
     private int answeredQn, unAnsweredQN;
     TextView mTxt_quest, mTxt_E1, mTxt_E2, mTxt_level, mTxt_id, mTxt_known, mTxt_unknown,
-            mTxt_PointEachQ, mTxt_Submit, mPrimary_Text, mLearning_Text, mMaster_Text;
+            mTxt_PointEachQ, mTxt_Submit, mPrimary_Text, mLearning_Text, mMaster_Text,
+            mTxt_Header_topic;
     LinearLayout mL_explanation;
 
     String[] questionN = {"q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12",
@@ -71,6 +75,10 @@ public class MemorizeVersion1 extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
+        // To check internet connectivity
+        connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        networkCheck();
+
         viewModel = ViewModelProviders.of(this).get(Memorize_ViewModel.class);
         mPost_key = Objects.requireNonNull(getIntent().getExtras()).getString("key_name");
         child_Name = Objects.requireNonNull(getIntent().getExtras()).getString("childName");
@@ -90,6 +98,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
         mLearning_Text = findViewById(R.id.mLearning_Text);
         mMaster_Text = findViewById(R.id.mMaster_Text);
         mL_explanation = findViewById(R.id.mL_explanation);
+        mTxt_Header_topic = findViewById(R.id.mTxt_Header_topic);
 
         progressBar2 = findViewById(R.id.progressBar2);
         progressPrimary = findViewById(R.id.progressPrimary);
@@ -102,6 +111,9 @@ public class MemorizeVersion1 extends AppCompatActivity {
         mTxt_known.setVisibility(View.GONE);
         mTxt_unknown.setVisibility(View.GONE);
 
+        header_topic_selection();
+
+        progreesBarBackgroundVISIBLE();
         progressBarBackgroundGONE();
         readFromDatabase();
 
@@ -114,12 +126,128 @@ public class MemorizeVersion1 extends AppCompatActivity {
                 mL_explanation.setVisibility(View.GONE);
                 mTxt_known.setVisibility(View.GONE);
                 mTxt_unknown.setVisibility(View.GONE);
-                progreesBarBackgroundVISIBLE();
                 updateQuestion();
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Refreshing the question...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void header_topic_selection() {
+        switch (mPost_key) {
+            case "9010":
+                mTxt_Header_topic.setText("chapter 1");
+                break;
+            case "9012":
+                mTxt_Header_topic.setText("chapter 1");
+                break;
+            case "9020":
+                mTxt_Header_topic.setText("chapter 2");
+                break;
+            case "9021":
+                mTxt_Header_topic.setText("chapter 2");
+                break;
+            case "9030":
+                mTxt_Header_topic.setText("chapter 3");
+                break;
+            case "9031":
+                mTxt_Header_topic.setText("chapter 3");
+                break;
+            case "9040":
+                mTxt_Header_topic.setText("chapter 4");
+                break;
+            case "9041":
+                mTxt_Header_topic.setText("chapter 4");
+                break;
+            case "9050":
+                mTxt_Header_topic.setText("chapter 5");
+                break;
+            case "9051":
+                mTxt_Header_topic.setText("chapter 5");
+                break;
+            case "10000":
+                mTxt_Header_topic.setText("chapter 6");
+                break;
+            case "10001":
+                mTxt_Header_topic.setText("chapter 6");
+                break;
+            case "10002":
+                mTxt_Header_topic.setText("chapter 6");
+                break;
+            case "10003":
+                mTxt_Header_topic.setText("chapter 6");
+                break;
+            case "10070":
+                mTxt_Header_topic.setText("chapter 7");
+                break;
+            case "10071":
+                mTxt_Header_topic.setText("chapter 7");
+                break;
+            case "10072":
+                mTxt_Header_topic.setText("chapter 7");
+                break;
+            case "10073":
+                mTxt_Header_topic.setText("chapter 7");
+                break;
+            case "10081":
+                mTxt_Header_topic.setText("chapter 8");
+                break;
+            case "10082":
+                mTxt_Header_topic.setText("chapter 8");
+                break;
+            case "10090":
+                mTxt_Header_topic.setText("chapter 9");
+                break;
+            case "10091":
+                mTxt_Header_topic.setText("chapter 9");
+                break;
+            case "10100":
+                mTxt_Header_topic.setText("chapter 10");
+                break;
+            case "10101":
+                mTxt_Header_topic.setText("chapter 10");
+                break;
+            case "10110":
+                mTxt_Header_topic.setText("chapter 11");
+                break;
+            case "10111":
+                mTxt_Header_topic.setText("chapter 11");
+                break;
+            case "10120":
+                mTxt_Header_topic.setText("chapter 12");
+                break;
+            case "10121":
+                mTxt_Header_topic.setText("chapter 12");
+                break;
+            case "10130":
+                mTxt_Header_topic.setText("chapter 13");
+                break;
+            case "10131":
+                mTxt_Header_topic.setText("chapter 13");
+                break;
+            case "10140":
+                mTxt_Header_topic.setText("chapter 14");
+                break;
+            case "10141":
+                mTxt_Header_topic.setText("chapter 14");
+                break;
+            case "10150":
+                mTxt_Header_topic.setText("chapter 15");
+                break;
+            case "10151":
+                mTxt_Header_topic.setText("chapter 15");
+                break;
+            case "10160":
+                mTxt_Header_topic.setText("chapter 16");
+                break;
+            case "10161":
+                mTxt_Header_topic.setText("chapter 16");
+                break;
+            default:
+                mTxt_Header_topic.setText("memorize");
+                break;
+
+        }
     }
 
     public void readFromDatabase() {
@@ -132,7 +260,6 @@ public class MemorizeVersion1 extends AppCompatActivity {
 
 
         if (readQfromDatabase.isEmpty()) {
-//            Toast.makeText(getApplicationContext(), "106: ", Toast.LENGTH_LONG).show();
             updateQuestion();
         }
         if (!readQfromDatabase.isEmpty()) {
@@ -152,15 +279,17 @@ public class MemorizeVersion1 extends AppCompatActivity {
                         getE2 = e2;
                     }
                 } else {
+                    getQuestion = mre.getQ();
                     getE1 = mre.getE();
                     getE2 = mre.getEe();
                 }
-//                mTxt_quest.setText(getQuestion);
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     mTxt_quest.setText(Html.fromHtml(getQuestion, Html.FROM_HTML_MODE_COMPACT));
                 } else {
                     mTxt_quest.setText(Html.fromHtml(getQuestion));
                 }
+
                 totalQ = mre.getTotal_N_Q();
                 if (totalQ < 1) {
                     totalQ = 1;
@@ -188,36 +317,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         clicked = false;
-                        mTxt_known.setVisibility(View.GONE);
-                        mTxt_unknown.setVisibility(View.GONE);
-                        answeredQn = mQuestNum - 1;
-
-                        stopRepeatMarkCountSUCCESS_DB();
-
-                        level_cards = levelINCREASE(level_cards);
-//                        Toast.makeText(getApplicationContext(), String.valueOf(level_cards), Toast.LENGTH_SHORT).show();
-                        updateLevelStatus(level_cards);
-//                        stopRepeatMarkCountSUCCESS();
-
-                        eachQuestStatus_DB();
-
-                        addToDatabaseOFFLINE();
-
-                        String defaultE = "e";
-                        String defaultEE = "ee";
-                        mTxt_E1.setText(defaultE);
-                        mTxt_E2.setText(defaultEE);
-
-                        mQuestNum++;
-                        if (mQuestNum > totalQ) {
-                            mQuestNum = 1;
-                            totalPoint = 0;
-                            make_int_r_zero();
-                        }
-
-                        mTxt_Submit.setVisibility(View.VISIBLE);
-                        countPriLernMast();
-                        readFromDatabase();
+                        next_Q_or_not_KNOWN_offline();
                     }
                 });
 
@@ -227,31 +327,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
                     public void onClick(View v) {
                         clicked = false;
 
-                        mTxt_known.setVisibility(View.GONE);
-                        mTxt_unknown.setVisibility(View.GONE);
-                        unAnsweredQN = mQuestNum - 1;
-
-//                        stopRepeatMarkCountFAILURE();
-                        stopRepeatMarkCountFAILURE_DB();
-                        eachQuestStatus_DB();
-                        level_cards = levelDECREASE(level_cards);
-                        updateLevelStatus(level_cards);
-
-                        addToDatabaseOFFLINE();
-
-                        String defaultE = "e";
-                        String defaultEE = "ee";
-                        mTxt_E1.setText(defaultE);
-                        mTxt_E2.setText(defaultEE);
-                        mQuestNum++;
-//                        Toast.makeText(getApplicationContext(), String.valueOf(mQuestNum), Toast.LENGTH_LONG).show();
-                        if (mQuestNum > totalQ) {
-                            mQuestNum = 1;
-                            totalPoint = 0;
-                            make_int_r_zero();
-                        }
-                        countPriLernMast();
-                        readFromDatabase();
+                        next_Q_or_not_unknown_OFFLINE();
                     }
                 });
 
@@ -259,28 +335,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         clicked = true;
-                        mTxt_Submit.setVisibility(View.GONE);
-                        mTxt_known.setVisibility(View.VISIBLE);
-                        mTxt_unknown.setVisibility(View.VISIBLE);
-                        mL_explanation.setVisibility(View.VISIBLE);
-
-
-                        if (clicked) {
-//                            mTxt_E1.setText(getE1);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                mTxt_E1.setText(Html.fromHtml(getE1, Html.FROM_HTML_MODE_COMPACT));
-                            } else {
-                                mTxt_E1.setText(Html.fromHtml(getE1));
-                            }
-//                            mTxt_E2.setText(getE2);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                mTxt_E2.setText(Html.fromHtml(getE2, Html.FROM_HTML_MODE_COMPACT));
-                            } else {
-                                mTxt_E2.setText(Html.fromHtml(getE2));
-                            }
-                        }
-
-                        eachQuestStatus_DB();
+                        next_Q_or_not_SUBMIT_offline();
                     }
                 });
 
@@ -2084,6 +2139,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
 
         progreesBarBackgroundVISIBLE();
 
+
         Firebase mTotalQ = new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/info/totalQ");
         mTotalQ.addValueEventListener(new ValueEventListener() {
             @Override
@@ -2120,7 +2176,6 @@ public class MemorizeVersion1 extends AppCompatActivity {
                 if (question == null || question.equals("")) {
                     Toast.makeText(getApplicationContext(), "No Question Received From Database", Toast.LENGTH_LONG).show();
                 }
-//                mTxt_quest.setText(question);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     mTxt_quest.setText(Html.fromHtml(question, Html.FROM_HTML_MODE_COMPACT));
                 } else {
@@ -2170,30 +2225,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
             public void onClick(View v) {
                 clicked = false;
                 eachQuestStatus();
-                mTxt_known.setVisibility(View.GONE);
-                mTxt_unknown.setVisibility(View.GONE);
-                answeredQn = mQuestNum - 1;
-
-                level_cards = levelINCREASE(level_cards);
-                updateLevelStatus(level_cards);
-                stopRepeatMarkCountSUCCESS();
-
-                addToDatabase();
-
-                countPriLernMast();
-                String defaultE = "e";
-                String defaultEE = "ee";
-                mTxt_E1.setText(defaultE);
-                mTxt_E2.setText(defaultEE);
-
-                mQuestNum++;
-                if (mQuestNum > totalQ) {
-                    mQuestNum = 1;
-                    make_int_r_zero();
-                }
-
-                mTxt_Submit.setVisibility(View.VISIBLE);
-//                        addToDatabase();
+                next_Q_or_not_KNOWN();
                 readFromDatabase();
             }
         });
@@ -2204,31 +2236,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
             public void onClick(View v) {
                 clicked = false;
                 eachQuestStatus();
-                mTxt_known.setVisibility(View.GONE);
-                mTxt_unknown.setVisibility(View.GONE);
-                unAnsweredQN = mQuestNum - 1;
-
-                stopRepeatMarkCountFAILURE();
-                level_cards = levelDECREASE(level_cards);
-                updateLevelStatus(level_cards);
-
-//                        question = getQuestion;
-//                        e1 = getE1;
-//                        e2 = getE2;
-                addToDatabase();
-
-                countPriLernMast();
-                String defaultE = "e";
-                String defaultEE = "ee";
-                mTxt_E1.setText(defaultE);
-                mTxt_E2.setText(defaultEE);
-                mQuestNum++;
-//                        Toast.makeText(getApplicationContext(), String.valueOf(mQuestNum), Toast.LENGTH_LONG).show();
-                if (mQuestNum > totalQ) {
-                    mQuestNum = 1;
-                    make_int_r_zero();
-                }
-//                        addToDatabase();
+                next_Q_or_not_unknown();
                 readFromDatabase();
             }
         });
@@ -2237,27 +2245,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clicked = true;
-                mTxt_Submit.setVisibility(View.GONE);
-                mTxt_known.setVisibility(View.VISIBLE);
-                mTxt_unknown.setVisibility(View.VISIBLE);
-                mL_explanation.setVisibility(View.VISIBLE);
-
-
-                if (clicked) {
-
-//                    mTxt_E1.setText(e1);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        mTxt_E1.setText(Html.fromHtml(e1, Html.FROM_HTML_MODE_COMPACT));
-                    } else {
-                        mTxt_E1.setText(Html.fromHtml(e1));
-                    }
-//                    mTxt_E2.setText(e2);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        mTxt_E2.setText(Html.fromHtml(e2, Html.FROM_HTML_MODE_COMPACT));
-                    } else {
-                        mTxt_E2.setText(Html.fromHtml(e2));
-                    }
-                }
+                next_Q_or_not_SUBMIT();
 
                 eachQuestStatus();
             }
@@ -2266,27 +2254,24 @@ public class MemorizeVersion1 extends AppCompatActivity {
     }
 
     public void progreesBarBackgroundVISIBLE() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar2.setVisibility(View.VISIBLE);
-                    }
-                });
-            }
-        }).start();
+        progressBar2.setVisibility(View.VISIBLE);
+        mTxt_Submit.setClickable(false);
     }
 
     public void progressBarBackgroundGONE() {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         progressBar2.setVisibility(View.GONE);
+                        mTxt_Submit.setClickable(true);
                     }
                 });
             }
@@ -3726,9 +3711,227 @@ public class MemorizeVersion1 extends AppCompatActivity {
                 });
             }
         }).start();
-
-
     }
 
+    public void networkCheck() {
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            Snackbar.make(findViewById(R.id.mMemorise), "Internet is Available...",
+                    Snackbar.LENGTH_SHORT).show();
+        } else {
+            Snackbar.make(findViewById(R.id.mMemorise), "No Network Connection...",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void next_Q_or_not_KNOWN() {
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            mTxt_known.setVisibility(View.GONE);
+            mTxt_unknown.setVisibility(View.GONE);
+            answeredQn = mQuestNum - 1;
+
+            level_cards = levelINCREASE(level_cards);
+            updateLevelStatus(level_cards);
+            stopRepeatMarkCountSUCCESS();
+
+            addToDatabase();
+
+            countPriLernMast();
+            String defaultE = "e";
+            String defaultEE = "ee";
+            mTxt_E1.setText(defaultE);
+            mTxt_E2.setText(defaultEE);
+
+            mQuestNum++;
+            if (mQuestNum > totalQ) {
+                mQuestNum = 1;
+                make_int_r_zero();
+            }
+
+            mTxt_Submit.setVisibility(View.VISIBLE);
+
+        } else {
+            Snackbar.make(findViewById(R.id.mMemorise), "No Network Connection...",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void next_Q_or_not_unknown() {
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            mTxt_known.setVisibility(View.GONE);
+            mTxt_unknown.setVisibility(View.GONE);
+            unAnsweredQN = mQuestNum - 1;
+
+            stopRepeatMarkCountFAILURE();
+            level_cards = levelDECREASE(level_cards);
+            updateLevelStatus(level_cards);
+
+            addToDatabase();
+
+            countPriLernMast();
+            String defaultE = "e";
+            String defaultEE = "ee";
+            mTxt_E1.setText(defaultE);
+            mTxt_E2.setText(defaultEE);
+            mQuestNum++;
+//                        Toast.makeText(getApplicationContext(), String.valueOf(mQuestNum), Toast.LENGTH_LONG).show();
+            if (mQuestNum > totalQ) {
+                mQuestNum = 1;
+                make_int_r_zero();
+            }
+
+        } else {
+            Snackbar.make(findViewById(R.id.mMemorise), "No Network Connection...",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void next_Q_or_not_SUBMIT() {
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            mTxt_Submit.setVisibility(View.GONE);
+            mTxt_known.setVisibility(View.VISIBLE);
+            mTxt_unknown.setVisibility(View.VISIBLE);
+            mL_explanation.setVisibility(View.VISIBLE);
+
+
+            if (clicked) {
+
+//                    mTxt_E1.setText(e1);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    mTxt_E1.setText(Html.fromHtml(e1, Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    mTxt_E1.setText(Html.fromHtml(e1));
+                }
+//                    mTxt_E2.setText(e2);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    mTxt_E2.setText(Html.fromHtml(e2, Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    mTxt_E2.setText(Html.fromHtml(e2));
+                }
+            }
+
+        } else {
+            Snackbar.make(findViewById(R.id.mMemorise), "No Network Connection...",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void next_Q_or_not_KNOWN_offline() {
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            mTxt_known.setVisibility(View.GONE);
+            mTxt_unknown.setVisibility(View.GONE);
+            answeredQn = mQuestNum - 1;
+
+            stopRepeatMarkCountSUCCESS_DB();
+
+            level_cards = levelINCREASE(level_cards);
+
+            updateLevelStatus(level_cards);
+
+            eachQuestStatus_DB();
+
+            addToDatabaseOFFLINE();
+
+            String defaultE = "e";
+            String defaultEE = "ee";
+            mTxt_E1.setText(defaultE);
+            mTxt_E2.setText(defaultEE);
+
+            mQuestNum++;
+            if (mQuestNum > totalQ) {
+                mQuestNum = 1;
+                totalPoint = 0;
+                make_int_r_zero();
+            }
+
+            mTxt_Submit.setVisibility(View.VISIBLE);
+            countPriLernMast();
+            readFromDatabase();
+
+        } else {
+            Snackbar.make(findViewById(R.id.mMemorise), "No Network Connection...",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void next_Q_or_not_unknown_OFFLINE() {
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            mTxt_known.setVisibility(View.GONE);
+            mTxt_unknown.setVisibility(View.GONE);
+            unAnsweredQN = mQuestNum - 1;
+
+            stopRepeatMarkCountFAILURE_DB();
+            eachQuestStatus_DB();
+            level_cards = levelDECREASE(level_cards);
+            updateLevelStatus(level_cards);
+
+            addToDatabaseOFFLINE();
+
+            String defaultE = "e";
+            String defaultEE = "ee";
+            mTxt_E1.setText(defaultE);
+            mTxt_E2.setText(defaultEE);
+            mQuestNum++;
+            if (mQuestNum > totalQ) {
+                mQuestNum = 1;
+                totalPoint = 0;
+                make_int_r_zero();
+            }
+            countPriLernMast();
+            readFromDatabase();
+
+        } else {
+            Snackbar.make(findViewById(R.id.mMemorise), "No Network Connection...",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void next_Q_or_not_SUBMIT_offline() {
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            mTxt_Submit.setVisibility(View.GONE);
+            mTxt_known.setVisibility(View.VISIBLE);
+            mTxt_unknown.setVisibility(View.VISIBLE);
+            mL_explanation.setVisibility(View.VISIBLE);
+
+
+            if (clicked) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    mTxt_E1.setText(Html.fromHtml(getE1, Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    mTxt_E1.setText(Html.fromHtml(getE1));
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    mTxt_E2.setText(Html.fromHtml(getE2, Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    mTxt_E2.setText(Html.fromHtml(getE2));
+                }
+            }
+
+            eachQuestStatus_DB();
+
+        } else {
+            Snackbar.make(findViewById(R.id.mMemorise), "No Network Connection...",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
 
 }

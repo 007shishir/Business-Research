@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mme.saif_win10.businessresearch.mcqRoomDatabase.Mcq_Database;
+import com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV;
 
 import java.util.Timer;
 
@@ -111,14 +112,18 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.home) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new OptionsMain()).addToBackStack("null").commit();
+        } else if (id == R.id.memorize) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new MemorizeRecV()).addToBackStack("null").commit();
+        } else if (id == R.id.mcq) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new McqRecV()).addToBackStack("null").commit();
+        } else if (id == R.id.privacy_policy) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new Privacy_Policy()).addToBackStack("null").commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
