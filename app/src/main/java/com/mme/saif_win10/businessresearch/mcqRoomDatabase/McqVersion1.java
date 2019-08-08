@@ -23,6 +23,8 @@ import com.firebase.client.ValueEventListener;
 //import com.google.android.gms.ads.AdRequest;
 //import com.google.android.gms.ads.AdView;
 //import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import com.mme.saif_win10.businessresearch.MainActivity;
@@ -40,6 +42,7 @@ public class McqVersion1 extends AppCompatActivity {
     private Handler handler = new Handler();
 
     private ConnectivityManager connectivityManager;
+    private AdView mADview1, mADview2, mADview3, mADview4;
 
     String mPost_key;
     String child_Name;
@@ -120,6 +123,15 @@ public class McqVersion1 extends AppCompatActivity {
 //        mAdView.loadAd(adRequest);
 // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        mADview1 = findViewById(R.id.mADview1);
+        mADview2 = findViewById(R.id.mADview2);
+        mADview3 = findViewById(R.id.mADview3);
+        mADview4 = findViewById(R.id.mADview4);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mADview1.loadAd(adRequest);
+        mADview2.loadAd(adRequest);
+        mADview3.loadAd(adRequest);
+        mADview4.loadAd(adRequest);
 
         //connecting with viewmodel class
         mcq_viewModel = ViewModelProviders.of(this).get(Mcq_ViewModel.class);

@@ -11,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV;
 
 
@@ -25,6 +28,7 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
     LinearLayout mLL_full_view;
     String url;
     FragmentTransaction fr;
+    private AdView add_banner_one, add_banner_two;
 
 
     public OptionsMain() {
@@ -59,6 +63,15 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
 
         mTxt_mcq = view.findViewById(R.id.mTxt_mcq);
         mTxt_memorize = view.findViewById(R.id.mTxt_memorize);
+
+        MobileAds.initialize(getActivity(),
+                "ca-app-pub-3940256099942544~3347511713");
+
+        add_banner_one = view.findViewById(R.id.add_banner_one);
+        add_banner_two = view.findViewById(R.id.add_banner_two);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        add_banner_one.loadAd(adRequest);
+        add_banner_two.loadAd(adRequest);
 
         cTxt_one.setOnClickListener(this);
         cTxt_two.setOnClickListener(this);

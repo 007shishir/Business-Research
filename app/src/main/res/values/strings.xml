@@ -5,8 +5,43 @@
     <string name="nav_header_title">Business Research</string>
     <string name="nav_header_subtitle">eee.videotutorial@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="instruction">Instruction</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="theory">THEORY</string>
+    <string name="_01_research_in_business">01-Research in Business</string>
+    <string name="_02_ethics_in_business">02-Ethics in Business</string>
+    <string name="_03_thinking_like_a_researcher">03-Thinking Like a Researcher</string>
+    <string name="_04_the_research_process">04-The Research Process</string>
+    <string name="_05_clarifying_research_question">05-Clarifying Research Question</string>
+    <string name="_06_research_design">06-Research Design</string>
+    <string name="_07_qualitative_research">07-Qualitative Research</string>
+    <string name="_08_observation_studies">08-Observation Studies</string>
+    <string name="_09_experiments">09-Experiments</string>
+    <string name="_10_surveys">10-Surveys</string>
+    <string name="_11_measurement">11-Measurement</string>
+    <string name="_12_measurement_scales">12-Measurement Scales</string>
+    <string name="_13_questionnaires_and_instruments">13-Questionnaires and Instruments</string>
+    <string name="_14_sampling">14-Sampling</string>
+    <string name="_15_data_preparation_and_description">15-Data Preparation and Description</string>
+    <string name="_16_exploring_displaying_and_examining_data">16-Exploring, Displaying, and Examining Data</string>
+    <string name="practice_and_exam">Practice and Exam</string>
+    <string name="memorize">Memorize</string>
+    <string name="mcq">MCQ</string>
+    <string name="master_status">Master Status</string>
+    <string name="learning_status">Learning Status</string>
+    <string name="primary_status">Primary Status</string>
+    <string name="random_text">Random Text</string>
+    <string name="refresh">refresh</string>
+    <string name="explanation">explanation</string>
+    <string name="submit">submit</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="point">Point</string>
+    <string name="primary">Primary</string>
+    <string name="answer">Answer</string>
+    <string name="check">Check</string>
+    <string name="question">Question</string>
+    <string name="id">ID</string>
+    <string name="topic">Topic</string>
 </resources>

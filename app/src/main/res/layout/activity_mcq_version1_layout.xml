@@ -29,7 +29,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/mcq_topic_background"
                     android:gravity="center"
-                    android:text="Topic"
+                    android:text="@string/topic"
                     android:textAlignment="center"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused"
                     android:textSize="16sp"
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/mcq_id_background"
                         android:gravity="center"
-                        android:text="ID"
+                        android:text="@string/id"
                         android:textAlignment="center"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
@@ -57,7 +57,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/mcq_card_status_background"
                         android:gravity="center"
-                        android:text="Primary"
+                        android:text="@string/primary"
                         android:textAlignment="center"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
                 </LinearLayout>
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/mcq_question_background"
                 android:gravity="center"
-                android:text="Question"
+                android:text="@string/question"
                 android:textAlignment="center"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textStyle="bold" />
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/mcq_answer_background"
                         android:gravity="center"
-                        android:text="Check"
+                        android:text="@string/check"
                         android:textAlignment="center"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
@@ -102,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/mcq_answer_background"
                         android:gravity="center"
-                        android:text="Answer"
+                        android:text="@string/answer"
                         android:textAlignment="center"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/mcq_question_status_background"
                         android:gravity="center"
-                        android:text="Primary"
+                        android:text="@string/primary"
                         android:textAlignment="center"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/mcq_answer_background"
                         android:gravity="center"
-                        android:text="Point"
+                        android:text="@string/point"
                         android:textAlignment="center"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
@@ -147,28 +147,28 @@
                         android:id="@+id/mChkOpt1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="CheckBox"
+                        android:text="@string/checkbox"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                     <CheckBox
                         android:id="@+id/mChkOpt2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="CheckBox"
+                        android:text="@string/checkbox"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                     <CheckBox
                         android:id="@+id/mChkOpt3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="CheckBox"
+                        android:text="@string/checkbox"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                     <CheckBox
                         android:id="@+id/mChkOpt4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="CheckBox"
+                        android:text="@string/checkbox"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                 </LinearLayout>
@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/mcq_submit_background"
-                    android:text="submit"
+                    android:text="@string/submit"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                 <Button
@@ -210,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/mcq_explanation_background"
                 android:gravity="center"
-                android:text="explanation"
+                android:text="@string/explanation"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
             <LinearLayout
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/mcq_answer_background"
-                    android:text="refresh"
+                    android:text="@string/refresh"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                 <TextView
@@ -234,7 +234,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/mcq_extra_text_background"
                     android:gravity="center"
-                    android:text="Random Text"
+                    android:text="@string/random_text"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
             </LinearLayout>
 
@@ -253,7 +253,7 @@
                         android:id="@+id/mPrimary_Text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Primary Status"
+                        android:text="@string/primary_status"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused"
                         android:textStyle="bold" />
 
@@ -270,7 +270,7 @@
                         android:id="@+id/mLearning_Text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Learning Status"
+                        android:text="@string/learning_status"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused"
                         android:textStyle="bold" />
 
@@ -288,7 +288,7 @@
                         android:id="@+id/mMaster_Text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Master Status"
+                        android:text="@string/master_status"
                         android:textColor="@color/common_google_signin_btn_text_dark_focused"
                         android:textStyle="bold" />
 
@@ -305,28 +305,28 @@
 
             <com.google.android.gms.ads.AdView
                 xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView"
+                android:id="@+id/mADview1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 ads:adSize="SMART_BANNER"
                 ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
             <com.google.android.gms.ads.AdView
-                android:id="@+id/adView4"
+                android:id="@+id/mADview2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adSize="SMART_BANNER"
                 app:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
             <com.google.android.gms.ads.AdView
-                android:id="@+id/adView5"
+                android:id="@+id/mADview3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adSize="SMART_BANNER"
                 app:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
             <com.google.android.gms.ads.AdView
-                android:id="@+id/adView6"
+                android:id="@+id/mADview4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adSize="SMART_BANNER"

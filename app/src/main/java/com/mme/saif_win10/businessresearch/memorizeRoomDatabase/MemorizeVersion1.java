@@ -22,6 +22,9 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.mme.saif_win10.businessresearch.R;
 
 
@@ -33,6 +36,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
     Memorize_ViewModel viewModel;
     boolean clicked;
     private ConnectivityManager connectivityManager;
+    private AdView mAdView_1, mAdView_2, mAdView_3, mAdView_4;
 
     private ProgressBar progressBar2, progressPrimary, progressLearning, progressMaster;
     private Handler handler = new Handler();
@@ -74,6 +78,19 @@ public class MemorizeVersion1 extends AppCompatActivity {
         Firebase.setAndroidContext(this);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+        MobileAds.initialize(this,
+                "ca-app-pub-3940256099942544~3347511713");
+
+        mAdView_1 = findViewById(R.id.mAdView_1);
+        mAdView_2 = findViewById(R.id.mAdView_2);
+        mAdView_3 = findViewById(R.id.mAdView_3);
+        mAdView_4 = findViewById(R.id.mAdView_4);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView_1.loadAd(adRequest);
+        mAdView_2.loadAd(adRequest);
+        mAdView_3.loadAd(adRequest);
+        mAdView_4.loadAd(adRequest);
 
         // To check internet connectivity
         connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
