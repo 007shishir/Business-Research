@@ -122,7 +122,7 @@ public class McqVersion1 extends AppCompatActivity {
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
 // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, "ca-app-pub-2522810443010389~4731706529");
         mADview1 = findViewById(R.id.mADview1);
         mADview2 = findViewById(R.id.mADview2);
         mADview3 = findViewById(R.id.mADview3);

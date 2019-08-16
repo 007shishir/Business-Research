@@ -80,7 +80,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 
         MobileAds.initialize(this,
-                "ca-app-pub-3940256099942544~3347511713");
+                "ca-app-pub-2522810443010389~4731706529");
 
         mAdView_1 = findViewById(R.id.mAdView_1);
         mAdView_2 = findViewById(R.id.mAdView_2);

@@ -309,28 +309,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 ads:adSize="SMART_BANNER"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                ads:adUnitId="ca-app-pub-2522810443010389/7740905448" />
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/mADview2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adSize="SMART_BANNER"
-                app:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                app:adUnitId="ca-app-pub-2522810443010389/3360583407" />
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/mADview3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adSize="SMART_BANNER"
-                app:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                app:adUnitId="ca-app-pub-2522810443010389/6317811439" />
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/mADview4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adSize="SMART_BANNER"
-                app:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                app:adUnitId="ca-app-pub-2522810443010389/8233528338" />
 
         </LinearLayout>
     </ScrollView>

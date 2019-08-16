@@ -65,7 +65,7 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
         mTxt_memorize = view.findViewById(R.id.mTxt_memorize);
 
         MobileAds.initialize(getActivity(),
-                "ca-app-pub-3940256099942544~3347511713");
+                "ca-app-pub-2522810443010389~4731706529");
 
         add_banner_one = view.findViewById(R.id.add_banner_one);
         add_banner_two = view.findViewById(R.id.add_banner_two);

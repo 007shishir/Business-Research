@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     ads:adSize="SMART_BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                    ads:adUnitId="ca-app-pub-2522810443010389/7987004370" />
 
             </LinearLayout>
 
@@ -251,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     ads:adSize="SMART_BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                    ads:adUnitId="ca-app-pub-2522810443010389/8970334432" />
             </LinearLayout>
 
             <LinearLayout
@@ -265,7 +265,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     ads:adSize="SMART_BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                    ads:adUnitId="ca-app-pub-2522810443010389/8395619368" />
             </LinearLayout>
 
             <LinearLayout
@@ -279,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     ads:adSize="SMART_BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                    ads:adUnitId="ca-app-pub-2522810443010389/2708070617" />
             </LinearLayout>
 
         </LinearLayout>

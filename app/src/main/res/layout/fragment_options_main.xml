@@ -391,7 +391,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     ads:adSize="SMART_BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                    ads:adUnitId="ca-app-pub-2522810443010389/4837316603" />
             </LinearLayout>
 
             <LinearLayout
@@ -406,7 +406,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     ads:adSize="SMART_BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                    ads:adUnitId="ca-app-pub-2522810443010389/1253294815" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
