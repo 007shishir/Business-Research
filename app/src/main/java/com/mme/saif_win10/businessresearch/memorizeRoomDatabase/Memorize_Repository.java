@@ -1,14 +1,13 @@
 package com.mme.saif_win10.businessresearch.memorizeRoomDatabase;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import java.util.List;
 
-public class Memorize_Repository {
+class Memorize_Repository {
     private Memorize_Dao memorize_dao;
-    private LiveData<List<Memorize_entity>> select_livedata;
 
     Memorize_Repository(Application application){
         Memorize_database db = Memorize_database.getINSTANCE(application);
@@ -17,15 +16,10 @@ public class Memorize_Repository {
     }
 
     LiveData<List<Memorize_entity>> getSelect_livedata(String id){
-        select_livedata = memorize_dao.select_liveData(id);
-        return select_livedata;
+        return memorize_dao.select_liveData(id);
     }
 
-    int getCountPrimaryQuestion(String id){
-        return memorize_dao.countPrimaryQuestion(id);
-    }
-
-    public void addMemorizeQ(Memorize_entity memorize_entity){
+    void addMemorizeQ(Memorize_entity memorize_entity){
         new insertAsyncTask(memorize_dao).execute(memorize_entity);
     }
 

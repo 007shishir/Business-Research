@@ -38,10 +38,47 @@
     <string name="submit">submit</string>
     <string name="checkbox">CheckBox</string>
     <string name="point">Point</string>
-    <string name="primary">Primary</string>
     <string name="answer">Answer</string>
     <string name="check">Check</string>
     <string name="question">Question</string>
     <string name="id">ID</string>
     <string name="topic">Topic</string>
+
+<!--    sample app id admob-->
+    <string name="adMob_app_ID">ca-app-pub-3940256099942544~3347511713</string>
+
+<!--    original app id admob-->
+<!--    <string name="AdMob_App_ID">ca-app-pub-2522810443010389~4731706529</string>-->
+
+<!--    Banner Ad Original-->
+<!--    <string name="OptionMain_add_banner_one">ca-app-pub-2522810443010389/4837316603</string>-->
+<!--    <string name="OptionMain_add_banner_two">ca-app-pub-2522810443010389/1253294815</string>-->
+
+
+<!--    MCQ Banner Ad-->
+<!--    <string name="mcq_adview_one">ca-app-pub-2522810443010389/7740905448</string>-->
+<!--    <string name="mcq_adview_two">ca-app-pub-2522810443010389/3360583407</string>    -->
+
+
+<!--    Memorise Banner Ad-->
+<!--    <string name="memorise_adview_one">ca-app-pub-2522810443010389/7987004370</string>-->
+<!--    <string name="memorise_adview_two">ca-app-pub-2522810443010389/8970334432</string>    -->
+
+
+
+    sample banner ad
+    <string name="OptionMain_add_banner_one">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="OptionMain_add_banner_two">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="mcq_adview_one">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="mcq_adview_two">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="memorise_adview_one">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="memorise_adview_two">ca-app-pub-3940256099942544/6300978111 </string>
+
+
+    <string name="wrong">WRONG!</string>
+    <string name="right">RIGHT!</string>
+    <string name="primary">Primary</string>
+    <string name="learning">Learning</string>
+    <string name="master">Master</string>
+
 </resources>

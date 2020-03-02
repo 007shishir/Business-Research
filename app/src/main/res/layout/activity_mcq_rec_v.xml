@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".McqRecV"
-    android:id="@+id/mFregmentBcsOmcq">
+    tools:context=".mcqRoomDatabase.McqRecV"
+    android:id="@+id/mFregmentBcsOmcq"
+    android:background="@color/lightDarkBlue">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecycler_Mcq"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

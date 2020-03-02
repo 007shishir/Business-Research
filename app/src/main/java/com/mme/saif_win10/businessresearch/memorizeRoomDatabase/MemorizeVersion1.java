@@ -1,16 +1,16 @@
 package com.mme.saif_win10.businessresearch.memorizeRoomDatabase;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModelProviders;
+
+import androidx.lifecycle.ViewModelProviders;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,19 +24,17 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+
 import com.mme.saif_win10.businessresearch.R;
 
 
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MemorizeVersion1 extends AppCompatActivity {
     Memorize_ViewModel viewModel;
     boolean clicked;
     private ConnectivityManager connectivityManager;
-    private AdView mAdView_1, mAdView_2, mAdView_3, mAdView_4;
 
     private ProgressBar progressBar2, progressPrimary, progressLearning, progressMaster;
     private Handler handler = new Handler();
@@ -79,18 +77,13 @@ public class MemorizeVersion1 extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-        MobileAds.initialize(this,
-                "ca-app-pub-2522810443010389~4731706529");
 
-        mAdView_1 = findViewById(R.id.mAdView_1);
-        mAdView_2 = findViewById(R.id.mAdView_2);
-        mAdView_3 = findViewById(R.id.mAdView_3);
-        mAdView_4 = findViewById(R.id.mAdView_4);
+        AdView mAdView_1 = findViewById(R.id.mAdView_1);
+        AdView mAdView_2 = findViewById(R.id.mAdView_2);
+
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView_1.loadAd(adRequest);
         mAdView_2.loadAd(adRequest);
-        mAdView_3.loadAd(adRequest);
-        mAdView_4.loadAd(adRequest);
 
         // To check internet connectivity
         connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -122,7 +115,8 @@ public class MemorizeVersion1 extends AppCompatActivity {
         progressLearning = findViewById(R.id.progressLearning);
         progressMaster = findViewById(R.id.progressMaster);
 
-
+// Intitially submit will be visible but
+        // Explanation, known, unKnown view will be GONE! Will be visible after submit
         mTxt_Submit.setVisibility(View.VISIBLE);
         mL_explanation.setVisibility(View.GONE);
         mTxt_known.setVisibility(View.GONE);
@@ -273,7 +267,8 @@ public class MemorizeVersion1 extends AppCompatActivity {
         updateLevelStatus(level_cards);
         id = child_Name + "_" + mPost_key + "_" + questionN[mQuestNum - 1];
         countPriLernMast();
-        final List<Memorize_entity> readQfromDatabase = Memorize_database.getINSTANCE(getApplicationContext()).memorize_dao().select_question(id);
+        final List<Memorize_entity> readQfromDatabase = Memorize_database.
+                getINSTANCE(getApplicationContext()).memorize_dao().select_question(id);
 
 
         if (readQfromDatabase.isEmpty()) {
@@ -310,11 +305,13 @@ public class MemorizeVersion1 extends AppCompatActivity {
                 totalQ = mre.getTotal_N_Q();
                 if (totalQ < 1) {
                     totalQ = 1;
-                    Toast.makeText(getApplicationContext(), "find out why totalQ is less than one", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "find out why totalQ is less than one",
+                            Toast.LENGTH_SHORT).show();
                 }
 
                 String special_id = child_Name + "_" + mPost_key + "_" + questionN[totalQ - 1];
-                final List<Memorize_entity> read_level_fromDatabase = Memorize_database.getINSTANCE(getApplicationContext()).
+                final List<Memorize_entity> read_level_fromDatabase =
+                        Memorize_database.getINSTANCE(getApplicationContext()).
                         memorize_dao().select_question(special_id);
 
                 if (read_level_fromDatabase.isEmpty()) {
@@ -445,46 +442,16 @@ public class MemorizeVersion1 extends AppCompatActivity {
         });
     }
 
-    public void getTotal_Quest_and_Explanation_No() {
-        Firebase mTotalQ = new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/info/totalQ");
-        mTotalQ.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                totalQ = Integer.parseInt(dataSnapshot.getValue(String.class));
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-        Firebase mTotalE = new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/info/totalE");
-        mTotalE.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                totalE = Integer.parseInt(dataSnapshot.getValue(String.class));
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-    }
-
     public void updateLevelStatus(int a) {
         if (a < 2) {
-            mTxt_level.setText("Primary");
+            mTxt_level.setText(getResources().getString(R.string.primary));
             mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_background));
         } else if (a == 2 || a == 3) {
-            mTxt_level.setText("Learning");
+            mTxt_level.setText(getResources().getString(R.string.learning));
             mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_yellow));
         } else {
             //Toast.makeText(MemorizeVersion1.this, "Congratulation, you got the highest mark!", Toast.LENGTH_SHORT).show();
-            mTxt_level.setText("Master");
+            mTxt_level.setText(getResources().getString(R.string.master));
             mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_green));
         }
     }
@@ -653,12 +620,12 @@ public class MemorizeVersion1 extends AppCompatActivity {
 
     public void updateLevelEachQuestionStatus(int a) {
         if (a < 2) {
-            mTxt_PointEachQ.setText("Primary");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.primary));
 
         } else if (a == 2 || a == 3) {
-            mTxt_PointEachQ.setText("Learning");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.learning));
         } else {
-            mTxt_PointEachQ.setText("Master");
+            mTxt_PointEachQ.setText(getResources().getString(R.string.master));
         }
     }
 
@@ -3716,9 +3683,9 @@ public class MemorizeVersion1 extends AppCompatActivity {
                         progressLearning.setProgress(countLearning);
                         progressMaster.setProgress(countMaster);
 
-                        String textPr = "Primary: " + String.valueOf(countPrimary) + " (out of " + String.valueOf(totalQ) + ")";
-                        String textLr = "Learning: " + String.valueOf(countLearning) + " (out of " + String.valueOf(totalQ) + ")";
-                        String textMs = "Master: " + String.valueOf(countMaster) + " (out of " + String.valueOf(totalQ) + ")";
+                        String textPr = "Primary: " + countPrimary + " (out of " + totalQ + ")";
+                        String textLr = "Learning: " + countLearning + " (out of " + totalQ + ")";
+                        String textMs = "Master: " + countMaster + " (out of " + totalQ + ")";
 
                         mPrimary_Text.setText(textPr);
                         mLearning_Text.setText(textLr);

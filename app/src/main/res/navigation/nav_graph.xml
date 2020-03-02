@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/optionsMain">
+
+    <fragment
+        android:id="@+id/memorizeRecV"
+        android:name="com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV"
+        android:label="MemorizeRecV"
+        tools:layout="@layout/fragment_memorize_rec_v" />
+    <fragment
+        android:id="@+id/webView_Theory"
+        android:name="com.mme.saif_win10.businessresearch.WebView_Theory"
+        android:label="WebView_Theory" />
+    <fragment
+        android:id="@+id/optionsMain"
+        android:name="com.mme.saif_win10.businessresearch.OptionsMain"
+        android:label="OptionsMain" >
+        <action
+            android:id="@+id/action_optionsMain_to_memorizeRecV"
+            app:destination="@id/memorizeRecV" />
+        <action
+            android:id="@+id/action_optionsMain_to_webView_Theory"
+            app:destination="@id/webView_Theory" />
+        <action
+            android:id="@+id/action_optionsMain_to_mcqRecV"
+            app:destination="@id/mcqRecV" />
+    </fragment>
+    <fragment
+        android:id="@+id/mcqRecV"
+        android:name="com.mme.saif_win10.businessresearch.mcqRoomDatabase.McqRecV"
+        android:label="McqRecV" />
+</navigation>

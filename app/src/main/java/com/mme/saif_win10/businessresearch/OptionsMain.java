@@ -2,8 +2,11 @@ package com.mme.saif_win10.businessresearch;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.mme.saif_win10.businessresearch.mcqRoomDatabase.McqRecV;
 import com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV;
 
 
@@ -23,7 +27,7 @@ import com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV;
 public class OptionsMain extends Fragment implements View.OnClickListener {
 
     View view;
-    TextView cTxt_one, cTxt_two, cTxt_three, cTxt_four, cTxt_five, cTxt_six, cTxt_seven, cTxt_eight,
+    private TextView cTxt_one, cTxt_two, cTxt_three, cTxt_four, cTxt_five, cTxt_six, cTxt_seven, cTxt_eight,
             cTxt_nine, cTxt_ten, cTxt_11, cTxt_12, cTxt_13, cTxt_14, cTxt_15, cTxt_16, mTxt_mcq, mTxt_memorize;
     LinearLayout mLL_full_view;
     String url;
@@ -64,8 +68,8 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
         mTxt_mcq = view.findViewById(R.id.mTxt_mcq);
         mTxt_memorize = view.findViewById(R.id.mTxt_memorize);
 
-        MobileAds.initialize(getActivity(),
-                "ca-app-pub-2522810443010389~4731706529");
+//        MobileAds.initialize(getActivity(),
+//                "ca-app-pub-2522810443010389~4731706529");
 
         add_banner_one = view.findViewById(R.id.add_banner_one);
         add_banner_two = view.findViewById(R.id.add_banner_two);
@@ -99,100 +103,91 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        String url_string;
         switch (v.getId()) {
             case R.id.cTxt_one:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter1());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter1.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_two:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter2());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter2.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_three:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter3());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter3.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_four:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter4());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter4.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_five:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter5());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter5.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_six:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter6());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter6.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_seven:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter7());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter7.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_eight:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter8());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter8.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.mTxt_mcq:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new McqRecV());
-                fr.addToBackStack(null).commit();
+                NavDirections mcq_action = OptionsMainDirections
+                        .actionOptionsMainToMcqRecV();
+                Navigation.findNavController(v).navigate(mcq_action);
                 break;
             case R.id.mTxt_memorize:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new MemorizeRecV());
-                fr.addToBackStack(null).commit();
+                NavDirections mem_action = OptionsMainDirections
+                        .actionOptionsMainToMemorizeRecV();
+                Navigation.findNavController(v).navigate(mem_action);
                 break;
             case R.id.cTxt_nine:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter9());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter9.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_ten:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter10());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter10.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_11:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter11());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter11.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_12:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter12());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter12.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_13:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter13());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter13.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_14:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter14());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter14.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_15:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter15());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter15.html";
+                fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_16:
-                fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Chapter16());
-                fr.addToBackStack(null).commit();
+                url_string = "file:///android_asset/Chapter16.html";
+                fragmentTransaction(v, url_string);
                 break;
             default:
                 Toast.makeText(getContext(), "error in OptionMain", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    private static void fragmentTransaction(View view, String getUrl){
+        Bundle url = new Bundle();
+        url.putString("url", getUrl);
+        Navigation.findNavController(view).navigate(R.id.action_optionsMain_to_webView_Theory, url);
     }
 }

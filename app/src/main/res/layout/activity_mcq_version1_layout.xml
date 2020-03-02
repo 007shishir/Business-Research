@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,6 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/mADview1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:adSize="SMART_BANNER"
+                app:adUnitId="@string/mcq_adview_one" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -304,33 +311,11 @@
             </LinearLayout>
 
             <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/mADview1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                ads:adSize="SMART_BANNER"
-                ads:adUnitId="ca-app-pub-2522810443010389/7740905448" />
-
-            <com.google.android.gms.ads.AdView
                 android:id="@+id/mADview2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:adSize="SMART_BANNER"
-                app:adUnitId="ca-app-pub-2522810443010389/3360583407" />
-
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/mADview3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:adSize="SMART_BANNER"
-                app:adUnitId="ca-app-pub-2522810443010389/6317811439" />
-
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/mADview4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:adSize="SMART_BANNER"
-                app:adUnitId="ca-app-pub-2522810443010389/8233528338" />
+                app:adUnitId="@string/mcq_adview_two" />
 
         </LinearLayout>
     </ScrollView>
@@ -351,4 +336,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.51" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

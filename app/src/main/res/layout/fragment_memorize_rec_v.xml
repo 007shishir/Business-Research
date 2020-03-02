@@ -4,9 +4,10 @@
     android:id="@+id/mFregmentBcsOmcq"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".memorizeRoomDatabase.MemorizeRecV">
+    tools:context=".memorizeRoomDatabase.MemorizeRecV"
+    android:background="@color/lightDarkBlue">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecycler_Memorize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

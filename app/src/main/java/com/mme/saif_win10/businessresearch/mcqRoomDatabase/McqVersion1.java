@@ -1,13 +1,13 @@
 package com.mme.saif_win10.businessresearch.mcqRoomDatabase;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +34,8 @@ import com.mme.saif_win10.businessresearch.R;
 import java.util.List;
 import java.util.Objects;
 
+import static com.mme.saif_win10.businessresearch.R.*;
+
 public class McqVersion1 extends AppCompatActivity {
 
     //geting mcq_viewmodel object
@@ -42,7 +44,6 @@ public class McqVersion1 extends AppCompatActivity {
     private Handler handler = new Handler();
 
     private ConnectivityManager connectivityManager;
-    private AdView mADview1, mADview2, mADview3, mADview4;
 
     String mPost_key;
     String child_Name;
@@ -108,30 +109,25 @@ public class McqVersion1 extends AppCompatActivity {
     private Button btn_prev;
     private Button btn_refresh;
 
-    //AdView mAdView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mcq_version1_layout);
+        setContentView(layout.activity_mcq_version1_layout);
         Firebase.setAndroidContext(this);
 
         connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 
-//        mAdView = findViewById(R.id.mAdView);
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        mAdView.loadAd(adRequest);
+
 // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(this, "ca-app-pub-2522810443010389~4731706529");
-        mADview1 = findViewById(R.id.mADview1);
-        mADview2 = findViewById(R.id.mADview2);
-        mADview3 = findViewById(R.id.mADview3);
-        mADview4 = findViewById(R.id.mADview4);
+
+        AdView mADview1 = findViewById(id.mADview1);
+        AdView mADview2 = findViewById(id.mADview2);
+
         AdRequest adRequest = new AdRequest.Builder().build();
         mADview1.loadAd(adRequest);
         mADview2.loadAd(adRequest);
-        mADview3.loadAd(adRequest);
-        mADview4.loadAd(adRequest);
 
         //connecting with viewmodel class
         mcq_viewModel = ViewModelProviders.of(this).get(Mcq_ViewModel.class);
@@ -141,38 +137,38 @@ public class McqVersion1 extends AppCompatActivity {
         //Toast.makeText(StudyMCQ.this,mPost_key+child_Name,Toast.LENGTH_SHORT).show();
 
 
-        mTxt_quest = findViewById(R.id.mTxt_quest);
-        mTxt_ans = findViewById(R.id.mTxt_ans);
-        mTxt_expl = findViewById(R.id.mTxt_Expl);
-        mChkOpt1 = findViewById(R.id.mChkOpt1);
-        mChkOpt2 = findViewById(R.id.mChkOpt2);
-        mChkOpt3 = findViewById(R.id.mChkOpt3);
-        mChkOpt4 = findViewById(R.id.mChkOpt4);
-        mBtn_submit = findViewById(R.id.mBtn_submit);
-        mTxt_id = findViewById(R.id.mTxt_ID);
+        mTxt_quest = findViewById(id.mTxt_quest);
+        mTxt_ans = findViewById(id.mTxt_ans);
+        mTxt_expl = findViewById(id.mTxt_Expl);
+        mChkOpt1 = findViewById(id.mChkOpt1);
+        mChkOpt2 = findViewById(id.mChkOpt2);
+        mChkOpt3 = findViewById(id.mChkOpt3);
+        mChkOpt4 = findViewById(id.mChkOpt4);
+        mBtn_submit = findViewById(id.mBtn_submit);
+        mTxt_id = findViewById(id.mTxt_ID);
 
-        mPrimary_Text = findViewById(R.id.mPrimary_Text);
-        mLearning_Text = findViewById(R.id.mLearning_Text);
-        mMaster_Text = findViewById(R.id.mMaster_Text);
-        progressPrimary = findViewById(R.id.progressPrimary);
-        progressLearning = findViewById(R.id.progressLearning);
-        progressMaster = findViewById(R.id.progressMaster);
+        mPrimary_Text = findViewById(id.mPrimary_Text);
+        mLearning_Text = findViewById(id.mLearning_Text);
+        mMaster_Text = findViewById(id.mMaster_Text);
+        progressPrimary = findViewById(id.progressPrimary);
+        progressLearning = findViewById(id.progressLearning);
+        progressMaster = findViewById(id.progressMaster);
 
-        mTxt_totalQ = findViewById(R.id.mTxt_totalQ);
-        mTxt_Qnumber = findViewById(R.id.mTxt_Qnumber);
-        mTxt_level = findViewById(R.id.mTxt_level);
-        mTxt_PointEachQ = findViewById(R.id.mTxt_PointEachQ);
+        mTxt_totalQ = findViewById(id.mTxt_totalQ);
+        mTxt_Qnumber = findViewById(id.mTxt_Qnumber);
+        mTxt_level = findViewById(id.mTxt_level);
+        mTxt_PointEachQ = findViewById(id.mTxt_PointEachQ);
 
         //find the button for next previous and refresh
-        btn_next = findViewById(R.id.btn_next);
-        btn_prev = findViewById(R.id.btn_prev);
-        btn_refresh = findViewById(R.id.btn_refresh);
-        mTxt_cycle = findViewById(R.id.mTxt_cycle);
-        mTxt_RIGHTvWRONG = findViewById(R.id.mTxt_RIGHTvWRONG);
-        mTxt_Header_topic = findViewById(R.id.mTxt_Header_topic);
+        btn_next = findViewById(id.btn_next);
+        btn_prev = findViewById(id.btn_prev);
+        btn_refresh = findViewById(id.btn_refresh);
+        mTxt_cycle = findViewById(id.mTxt_cycle);
+        mTxt_RIGHTvWRONG = findViewById(id.mTxt_RIGHTvWRONG);
+        mTxt_Header_topic = findViewById(id.mTxt_Header_topic);
 
         //For Progress bar
-        progressBar2 = (ProgressBar) findViewById(R.id.mPRone);
+        progressBar2 = (ProgressBar) findViewById(id.mPRone);
 
 //        headerTopic();
 
@@ -190,9 +186,9 @@ public class McqVersion1 extends AppCompatActivity {
         assert connectivityManager != null;
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            Snackbar.make(findViewById(R.id.mcqView), "Internet is Available...", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(id.mcqView), "Internet is Available...", Snackbar.LENGTH_LONG).show();
         } else {
-            Snackbar.make(findViewById(R.id.mcqView), "No Network Connection...", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(id.mcqView), "No Network Connection...", Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -320,15 +316,15 @@ public class McqVersion1 extends AppCompatActivity {
         if (a < 2) {
             mTxt_PointEachQ.setText("Primary");
             //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#80ff1a1a"));
-            mTxt_PointEachQ.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
+            mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
         } else if (a == 2 || a == 3) {
             mTxt_PointEachQ.setText("Learning");
             //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#80ffff1a"));
-            mTxt_PointEachQ.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_yellow));
+            mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_yellow));
         } else {
             mTxt_PointEachQ.setText("Master");
             //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#8033ff33"));
-            mTxt_PointEachQ.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_green));
+            mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_green));
         }
     }
 
@@ -341,7 +337,7 @@ public class McqVersion1 extends AppCompatActivity {
     }
 
     public void initialState() {
-        String pointVquestion = "Point: " + String.valueOf(totalPoint) + "/" + totalQ;
+        String pointVquestion = "Point: " + totalPoint + "/" + totalQ;
         String countTry = "Tried: " + cycle + " times";
         String questionNo = "Question No: " + questionN[mQuestNum - 1];
         mTxt_totalQ.setText(pointVquestion);
@@ -350,7 +346,7 @@ public class McqVersion1 extends AppCompatActivity {
     }
 
     public void initialState_offline() {
-        String pointVquestion = "Point: " + String.valueOf(totalPoint) + "/" + String.valueOf(totalQuestion);
+        String pointVquestion = "Point: " + totalPoint + "/" + totalQuestion;
         String countTry = "Tried: " + cycle + " times";
         String questionNo = "Question No: " + questionN[mQuestNum - 1];
         mTxt_totalQ.setText(pointVquestion);
@@ -512,7 +508,7 @@ public class McqVersion1 extends AppCompatActivity {
                         String mRightvWrong = "Check";
 
                         //set Background color for RIGHT v WRONG indicator Text box
-                        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_answer_background));
+                        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
 
                         mBtn_submit.setText(mSubmit);
                         mTxt_ans.setText(mAnswer);
@@ -556,12 +552,12 @@ public class McqVersion1 extends AppCompatActivity {
 
                         if (ansChoice.equals(answer)) {
                             showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText("RIGHT");
+                            mTxt_RIGHTvWRONG.setText(string.right);
                             mTxt_ans.setText(showResult);
                             //Toast.makeText(McqQuestion.this, "Correct", Toast.LENGTH_SHORT).show();
 
                             //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_green));
+                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_green));
 
                             answeredQn = mQuestNum - 1;
                             totalPoint++;
@@ -584,10 +580,10 @@ public class McqVersion1 extends AppCompatActivity {
                         } else if (ansChoice.equals("NoAnswerChoosen")) {
                             initialState();
                             showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText("WRONG");
+                            mTxt_RIGHTvWRONG.setText(string.wrong);
 
                             //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
+                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
 
                             mTxt_ans.setText(showResult);
                             unAnsweredQN = mQuestNum - 1;
@@ -606,10 +602,10 @@ public class McqVersion1 extends AppCompatActivity {
                             //idEachQuest(child_Name,mPost_key,questionN[unAnsweredQN]);
                         } else {
                             showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText("WRONG");
+                            mTxt_RIGHTvWRONG.setText(string.wrong);
 
                             //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
+                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
 
                             mTxt_ans.setText(showResult);
                             //Toast.makeText(McqQuestion.this, "Wrong Answer, Question No.: " + questionN[unAnsweredQN], Toast.LENGTH_SHORT).show();
@@ -713,14 +709,14 @@ public class McqVersion1 extends AppCompatActivity {
     public void updateLevelStatus(int a) {
         if (a < 2) {
             mTxt_level.setText("Primary");
-            mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_background));
+            mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_background));
         } else if (a == 2 || a == 3) {
             mTxt_level.setText("Learning");
-            mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_yellow));
+            mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_yellow));
         } else {
             //Toast.makeText(McqVersion1.this, "Congratulation, you got the highest mark!", Toast.LENGTH_SHORT).show();
             mTxt_level.setText("Master");
-            mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_green));
+            mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_green));
         }
     }
 
@@ -1637,7 +1633,7 @@ public class McqVersion1 extends AppCompatActivity {
                                 String mRightvWrong = "Check";
 
                                 //set Background color for RIGHT v WRONG indicator Text box
-                                mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_answer_background));
+                                mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
 
                                 mBtn_submit.setText(mSubmit);
                                 mTxt_ans.setText(mAnswer);
@@ -1694,11 +1690,11 @@ public class McqVersion1 extends AppCompatActivity {
                             showResult = "Ans: " + get_ans;
                             mTxt_ans.setText(showResult);
 
-                            mTxt_RIGHTvWRONG.setText("RIGHT!");
+                            mTxt_RIGHTvWRONG.setText(getResources().getString(string.right));
                             //Toast.makeText(McqQuestion.this, "Correct", Toast.LENGTH_SHORT).show();
 
                             //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_green));
+                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_green));
 
                             answeredQn = mQuestNum - 1;
                             //eachQuestStatusSUCCESS() is replaced with stopRepeatMarkCountSUCCESS() to stop repeat count
@@ -1717,10 +1713,10 @@ public class McqVersion1 extends AppCompatActivity {
                             initialState_offline();
                             showResult = "Ans: " + get_ans;
                             mTxt_ans.setText(showResult);
-                            mTxt_RIGHTvWRONG.setText("WRONG!");
+                            mTxt_RIGHTvWRONG.setText(getResources().getString(string.wrong));
 
                             //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
+                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
 
                             unAnsweredQN = mQuestNum - 1;
 
@@ -1736,11 +1732,11 @@ public class McqVersion1 extends AppCompatActivity {
                         } else {
                             showResult = "Ans: " + get_ans;
                             mTxt_ans.setText(showResult);
-                            mTxt_RIGHTvWRONG.setText("WRONG!");
+                            mTxt_RIGHTvWRONG.setText(string.wrong);
                             //Toast.makeText(McqQuestion.this, "Wrong Answer, Question No.: " + questionN[unAnsweredQN], Toast.LENGTH_SHORT).show();
 
                             //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_question_status_background));
+                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
 
                             initialState_offline();
                             unAnsweredQN = mQuestNum - 1;
@@ -1830,7 +1826,7 @@ public class McqVersion1 extends AppCompatActivity {
                 mTxt_expl.setText(mExplanation);
                 mTxt_RIGHTvWRONG.setText(chooseAnswer);
                 //set Background color for RIGHT v WRONG indicator Text box
-                mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_answer_background));
+                mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
 
                 updateQuestion();
             }
@@ -1860,7 +1856,7 @@ public class McqVersion1 extends AppCompatActivity {
         String mRightvWrong = "Check";
 
         //set Background color for RIGHT v WRONG indicator Text box
-        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_answer_background));
+        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
 
         mBtn_submit.setText(mSubmit);
         mTxt_ans.setText(mAnswer);
@@ -1925,7 +1921,7 @@ public class McqVersion1 extends AppCompatActivity {
         String mRightvWrong = "Check";
 
         //set Background color for RIGHT v WRONG indicator Text box
-        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(R.drawable.mcq_answer_background));
+        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
         mBtn_submit.setText(mSubmit);
         mTxt_ans.setText(mAnswer);
         mTxt_expl.setText(mExplanation);
@@ -3135,9 +3131,9 @@ public class McqVersion1 extends AppCompatActivity {
                         progressLearning.setProgress(countLearning);
                         progressMaster.setProgress(countMaster);
 
-                        String textPr = "Primary: " + String.valueOf(countPrimary) + " (out of " + String.valueOf(totalQuestion) + ")";
-                        String textLr = "Learning: " + String.valueOf(countLearning) + " (out of " + String.valueOf(totalQuestion) + ")";
-                        String textMs = "Master: " + String.valueOf(countMaster) + " (out of " + String.valueOf(totalQuestion) + ")";
+                        String textPr = "Primary: " + countPrimary + " (out of " + totalQuestion + ")";
+                        String textLr = "Learning: " + countLearning + " (out of " + totalQuestion + ")";
+                        String textMs = "Master: " + countMaster + " (out of " + totalQuestion + ")";
 
                         mPrimary_Text.setText(textPr);
                         mLearning_Text.setText(textLr);

@@ -1,10 +1,8 @@
 package com.mme.saif_win10.businessresearch.mcqRoomDatabase;
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
-
-import com.google.firebase.database.annotations.NotNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
 
 
 @Entity (tableName = "mcq_question")
@@ -50,27 +48,27 @@ public class Mcq_Q_entity
     private int level_question;
 
 
-    public int getTotal_N_Q() {
+     int getTotal_N_Q() {
         return total_N_Q;
     }
 
-    public void setTotal_N_Q(int total_N_Q) {
+     void setTotal_N_Q(int total_N_Q) {
         this.total_N_Q = total_N_Q;
     }
 
-    public int getLevel_cards() {
+     int getLevel_cards() {
         return level_cards;
     }
 
-    public void setLevel_cards(int level_cards) {
+     void setLevel_cards(int level_cards) {
         this.level_cards = level_cards;
     }
 
-    public int getLevel_question() {
+     int getLevel_question() {
         return level_question;
     }
 
-    public void setLevel_question(int level_question) {
+     void setLevel_question(int level_question) {
         this.level_question = level_question;
     }
 
@@ -83,59 +81,59 @@ public class Mcq_Q_entity
         this.id = id;
     }
 
-    public String getQ() {
+     String getQ() {
         return q;
     }
 
-    public void setQ(String q) {
+     void setQ(String q) {
         this.q = q;
     }
 
-    public String getO1() {
+     String getO1() {
         return o1;
     }
 
-    public void setO1(String o1) {
+     void setO1(String o1) {
         this.o1 = o1;
     }
 
-    public String getO2() {
+     String getO2() {
         return o2;
     }
 
-    public void setO2(String o2) {
+     void setO2(String o2) {
         this.o2 = o2;
     }
 
-    public String getO3() {
+     String getO3() {
         return o3;
     }
 
-    public void setO3(String o3) {
+     void setO3(String o3) {
         this.o3 = o3;
     }
 
-    public String getO4() {
+     String getO4() {
         return o4;
     }
 
-    public void setO4(String o4) {
+     void setO4(String o4) {
         this.o4 = o4;
     }
 
-    public String getAns() {
+     String getAns() {
         return ans;
     }
 
-    public void setAns(String ans) {
+    void setAns(String ans) {
         this.ans = ans;
     }
 
-    public String getE() {
+    String getE() {
         return e;
     }
 
-    public void setE(String e) {
+    void setE(String e) {
         this.e = e;
     }
 }

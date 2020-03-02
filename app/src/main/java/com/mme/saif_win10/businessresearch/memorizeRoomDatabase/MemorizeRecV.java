@@ -3,9 +3,9 @@ package com.mme.saif_win10.businessresearch.memorizeRoomDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +26,6 @@ public class MemorizeRecV extends Fragment {
     private RecyclerView mRecycler_Memorize;
     private DatabaseReference mDatabase;
 
-View rootView;
     public MemorizeRecV() {
         // Required empty public constructor
     }
@@ -36,7 +35,7 @@ View rootView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_memorize_rec_v, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_memorize_rec_v, container, false);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("memorize");
         mDatabase.keepSynced(false);
         mRecycler_Memorize = rootView.findViewById(R.id.mRecycler_Memorize);

@@ -1,12 +1,12 @@
 package com.mme.saif_win10.businessresearch.mcqRoomDatabase;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import java.util.List;
 
-public class Mcq_Repository {
+class Mcq_Repository {
 
     private Mcq_Q_Dao mcq_q_dao;
     private LiveData<List<Mcq_Q_entity>> select_row;
@@ -22,12 +22,12 @@ public class Mcq_Repository {
 //        select_row = mcq_q_dao.select_row(get_id);
     }
 
-    public LiveData<List<Mcq_Q_entity>> getSelect_row(String id) {
+    LiveData<List<Mcq_Q_entity>> getSelect_row(String id) {
         select_row = mcq_q_dao.select_row(id);
         return select_row;
     }
 
-    public void addMcq_q (Mcq_Q_entity mcq_q_entity)
+    void addMcq_q(Mcq_Q_entity mcq_q_entity)
     {
         new insertAsyncTask(mcq_q_dao).execute(mcq_q_entity);
     }
