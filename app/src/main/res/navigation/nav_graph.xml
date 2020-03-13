@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/optionsMain">
-
+    
     <fragment
         android:id="@+id/memorizeRecV"
         android:name="com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV"

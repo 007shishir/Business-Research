@@ -26,7 +26,7 @@ import com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV;
  * This is main method
  * @author Saiful Islam
  * @since 12 March 2020
- * @version 2.0
+ * @version 2.1
  */
 
 public class MainActivity extends AppCompatActivity
@@ -83,11 +83,8 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                    new OptionsMain()).commit();
+        }else
             super.onBackPressed();
-        }
     }
 
     @Override
@@ -159,5 +156,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
 

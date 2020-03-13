@@ -44,6 +44,7 @@ public class Interstitial_ad implements Iinterstitial_Ad {
 
         //Below is for the TEST purpose only
 //        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        mInterstitialAd.setAdUnitId("ca-app-pub-2522810443010389/6580857976"); = Original
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/appBackground"
     tools:context=".OptionsMain"
+    android:id="@+id/optionsMain"
     >
 
     <ScrollView

@@ -18,7 +18,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mme.saif_win10.businessresearch.Interstitial_ad;
 import com.mme.saif_win10.businessresearch.Parameter;
 import com.mme.saif_win10.businessresearch.R;
 
@@ -37,7 +36,6 @@ public class MemorizeRecV extends Fragment {
 
     private RecyclerView mRecycler_Memorize;
     private DatabaseReference mDatabase;
-    private Interstitial_ad interstitialAd;
     private ConnectivityManager connectivityManager;
 
     public MemorizeRecV() {
@@ -50,8 +48,6 @@ public class MemorizeRecV extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_memorize_rec_v, container, false);
-
-        callingAndLoading_interstitialAd();
 
         connectivityManager = (ConnectivityManager) Objects.requireNonNull(getActivity()).
                 getSystemService(CONNECTIVITY_SERVICE);
@@ -144,23 +140,4 @@ public class MemorizeRecV extends Fragment {
         }
     }
 
-    /**
-     * This method call class {@link Interstitial_ad}
-     * And load an Interstitial Ad
-     * No Param and No return
-     * @since 13 March 2020
-     * @author Saiful Islam
-     */
-    private void callingAndLoading_interstitialAd() {
-        //for loading interstitial ad
-        interstitialAd = new Interstitial_ad(Objects.requireNonNull(getContext()));
-        interstitialAd.createInterstitial();
-        interstitialAd.loadInterstitial();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        interstitialAd.showInterstitial();
-    }
 }
