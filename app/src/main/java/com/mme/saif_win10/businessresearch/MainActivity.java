@@ -1,19 +1,13 @@
 package com.mme.saif_win10.businessresearch;
 
 import androidx.room.Room;
-
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkRequest;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -28,12 +22,15 @@ import com.mme.saif_win10.businessresearch.mcqRoomDatabase.McqRecV;
 import com.mme.saif_win10.businessresearch.mcqRoomDatabase.Mcq_Database;
 import com.mme.saif_win10.businessresearch.memorizeRoomDatabase.MemorizeRecV;
 
+/**
+ * This is main method
+ * @author Saiful Islam
+ * @since 12 March 2020
+ * @version 2.0
+ */
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private ConnectivityManager connectivityManager;
-    private ConnectivityManager.NetworkCallback mCallBack;
-    NetworkRequest request;
 
     public static Mcq_Database mcq_database;
 
@@ -47,13 +44,8 @@ public class MainActivity extends AppCompatActivity
         mcq_database = Room.databaseBuilder(getApplicationContext(), Mcq_Database.class, "McqDb").
                 allowMainThreadQueries().build();
 
-        //calling method to check whether there is active network connection.
-        //Does not work when app starts.
-        connectivityManager = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        request = new NetworkRequest.Builder().build();
-        networkCheck();
 
+        isNetworkExist();
 
         //initializing ad - admob - need to be done only once
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -61,7 +53,6 @@ public class MainActivity extends AppCompatActivity
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
@@ -77,6 +68,14 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
                     new OptionsMain()).commit();
         }
+    }
+
+    /**
+     * calling {@link CheckingNetwork} and checking if network exist
+     */
+    private void isNetworkExist() {
+        CheckingNetwork checkingNetwork = new CheckingNetwork(getApplicationContext());
+        checkingNetwork.notifyUser(checkingNetwork.isNetworkAvailable());
     }
 
     @Override
@@ -159,89 +158,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-//    public void informUser(String message){
-//        if (message.equalsIgnoreCase("no")){
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Thread.sleep(3000);
-//                        assert connectivityManager != null;
-//                        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-//                        if (networkInfo!=null && networkInfo.isConnected()){
-//                            networkCheck();
-//                        }else {
-//                            informUser("no");
-//                        }
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//
-//        }else {
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Thread.sleep(3000);
-//                        assert connectivityManager != null;
-//                        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-//                        if (networkInfo!=null && networkInfo.isConnected()){
-//                            informUser("yes");
-//                        }else {
-//                            networkCheck();
-//                        }
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//        }
-//    }
-//    public void networkCheck(){
-//        assert connectivityManager != null;
-//        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-//        if (networkInfo!=null && networkInfo.isConnected()){
-//            Snackbar.make(findViewById(R.id.mMainContent), "Internet is Available...", Snackbar.LENGTH_SHORT).show();
-//            informUser("yes");
-//        }else {
-//            Snackbar.make(findViewById(R.id.mMainContent), "No Network Connection...", Snackbar.LENGTH_INDEFINITE).show();
-//            informUser("no");
-//        }
-//    }
-
-
-
-    void networkCheck() {
-        mCallBack = new ConnectivityManager.NetworkCallback() {
-            @Override
-            public void onLost(@NonNull Network network) {
-                Toast.makeText(getApplicationContext(), "Make sure you have active internet connection",
-                        Toast.LENGTH_SHORT).show();
-                Snackbar.make(findViewById(R.id.mMainContent), "No Network Connection...",
-                        Snackbar.LENGTH_INDEFINITE).show();
-//                super.onLost(network);
-            }
-
-            @Override
-            public void onAvailable(@NonNull Network network) {
-                Snackbar.make(findViewById(R.id.mMainContent), "Internet Available...", Snackbar.LENGTH_SHORT).show();
-//                super.onAvailable(network);
-            }
-
-        };
-        assert connectivityManager != null;
-        connectivityManager.registerNetworkCallback(request, mCallBack);
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        connectivityManager.unregisterNetworkCallback(mCallBack);
-        super.onStop();
     }
 }
 

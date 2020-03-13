@@ -66,13 +66,9 @@
 
 
 
-    sample banner ad
-    <string name="OptionMain_add_banner_one">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="OptionMain_add_banner_two">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="mcq_adview_one">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="mcq_adview_two">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="memorise_adview_one">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="memorise_adview_two">ca-app-pub-3940256099942544/6300978111 </string>
+<!--    sample banner ad-->
+    <string name="banner_ad">ca-app-pub-3940256099942544/6300978111</string>
+
 
 
     <string name="wrong">WRONG!</string>

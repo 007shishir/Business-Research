@@ -1,7 +1,7 @@
 package com.mme.saif_win10.businessresearch.memorizeRoomDatabase;
 
 
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -10,26 +10,28 @@ import android.os.Handler;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-
 import com.mme.saif_win10.businessresearch.R;
-
-
 import java.util.List;
 import java.util.Objects;
+
+/**
+ * This method is for Memorise
+ * @author Saiful Islam
+ * @since 13 March 2020
+ * @version 1.0
+ */
 
 public class MemorizeVersion1 extends AppCompatActivity {
     Memorize_ViewModel viewModel;
@@ -79,17 +81,15 @@ public class MemorizeVersion1 extends AppCompatActivity {
 
 
         AdView mAdView_1 = findViewById(R.id.mAdView_1);
-        AdView mAdView_2 = findViewById(R.id.mAdView_2);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView_1.loadAd(adRequest);
-        mAdView_2.loadAd(adRequest);
 
         // To check internet connectivity
         connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         networkCheck();
+        viewModel = new ViewModelProvider(this).get(Memorize_ViewModel.class);
 
-        viewModel = ViewModelProviders.of(this).get(Memorize_ViewModel.class);
         mPost_key = Objects.requireNonNull(getIntent().getExtras()).getString("key_name");
         child_Name = Objects.requireNonNull(getIntent().getExtras()).getString("childName");
 
@@ -129,7 +129,7 @@ public class MemorizeVersion1 extends AppCompatActivity {
         readFromDatabase();
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,74 +147,46 @@ public class MemorizeVersion1 extends AppCompatActivity {
     private void header_topic_selection() {
         switch (mPost_key) {
             case "9010":
-                mTxt_Header_topic.setText("chapter 1");
-                break;
             case "9012":
                 mTxt_Header_topic.setText("chapter 1");
                 break;
             case "9020":
-                mTxt_Header_topic.setText("chapter 2");
-                break;
             case "9021":
                 mTxt_Header_topic.setText("chapter 2");
                 break;
             case "9030":
-                mTxt_Header_topic.setText("chapter 3");
-                break;
             case "9031":
                 mTxt_Header_topic.setText("chapter 3");
                 break;
             case "9040":
-                mTxt_Header_topic.setText("chapter 4");
-                break;
             case "9041":
                 mTxt_Header_topic.setText("chapter 4");
                 break;
             case "9050":
-                mTxt_Header_topic.setText("chapter 5");
-                break;
             case "9051":
                 mTxt_Header_topic.setText("chapter 5");
                 break;
             case "10000":
-                mTxt_Header_topic.setText("chapter 6");
-                break;
             case "10001":
-                mTxt_Header_topic.setText("chapter 6");
-                break;
             case "10002":
-                mTxt_Header_topic.setText("chapter 6");
-                break;
             case "10003":
                 mTxt_Header_topic.setText("chapter 6");
                 break;
             case "10070":
-                mTxt_Header_topic.setText("chapter 7");
-                break;
             case "10071":
-                mTxt_Header_topic.setText("chapter 7");
-                break;
             case "10072":
-                mTxt_Header_topic.setText("chapter 7");
-                break;
             case "10073":
                 mTxt_Header_topic.setText("chapter 7");
                 break;
             case "10081":
-                mTxt_Header_topic.setText("chapter 8");
-                break;
             case "10082":
                 mTxt_Header_topic.setText("chapter 8");
                 break;
             case "10090":
-                mTxt_Header_topic.setText("chapter 9");
-                break;
             case "10091":
                 mTxt_Header_topic.setText("chapter 9");
                 break;
             case "10100":
-                mTxt_Header_topic.setText("chapter 10");
-                break;
             case "10101":
                 mTxt_Header_topic.setText("chapter 10");
                 break;

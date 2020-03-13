@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     ads:adSize="SMART_BANNER"
-                    ads:adUnitId="@string/memorise_adview_one" />
+                    ads:adUnitId="@string/banner_ad" />
 
             </LinearLayout>
 
@@ -244,20 +244,6 @@
                         android:progressBackgroundTint="@color/colorPrimaryDark"
                         android:progressTint="@android:color/holo_green_dark" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/mAdView_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    ads:adSize="SMART_BANNER"
-                    ads:adUnitId="@string/memorise_adview_two" />
             </LinearLayout>
 
         </LinearLayout>

@@ -12,6 +12,12 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.snackbar.Snackbar;
 
+/**
+ * This class check network
+ * it's constructor receive context
+ * @deprecated
+ * @since 12 March 2020
+ */
 class NetworkCheck {
     private Context context;
     //    private ConnectivityManager mCManager;

@@ -1,12 +1,11 @@
 package com.mme.saif_win10.businessresearch.mcqRoomDatabase;
 
-import androidx.lifecycle.ViewModelProviders;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import androidx.lifecycle.ViewModelProvider;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
@@ -15,20 +14,17 @@ import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-//import com.google.android.gms.ads.AdRequest;
-//import com.google.android.gms.ads.AdView;
-//import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import com.mme.saif_win10.businessresearch.AdmobAd;
+import com.mme.saif_win10.businessresearch.CheckingNetwork;
+import com.mme.saif_win10.businessresearch.Interstitial_ad;
 import com.mme.saif_win10.businessresearch.MainActivity;
-import com.mme.saif_win10.businessresearch.R;
 
 
 import java.util.List;
@@ -36,14 +32,18 @@ import java.util.Objects;
 
 import static com.mme.saif_win10.businessresearch.R.*;
 
+/**
+ * This class is for MCQ
+ * @author Saiful Islam
+ * @since 13 March 2020
+ * @version 1.0
+ */
 public class McqVersion1 extends AppCompatActivity {
 
     //geting mcq_viewmodel object
     private Mcq_ViewModel mcq_viewModel;
     private ProgressBar progressBar2, progressPrimary, progressLearning, progressMaster;
     private Handler handler = new Handler();
-
-    private ConnectivityManager connectivityManager;
 
     String mPost_key;
     String child_Name;
@@ -65,7 +65,6 @@ public class McqVersion1 extends AppCompatActivity {
 
     private Firebase mAnswer;
     private Firebase mExplanation;
-    private Firebase mTotalQ;
     private int mQuestNum = 1;
     private String ansChoice = "";
     private int totalQuestion;
@@ -108,7 +107,8 @@ public class McqVersion1 extends AppCompatActivity {
     private Button btn_next;
     private Button btn_prev;
     private Button btn_refresh;
-
+    Interstitial_ad interstitial_ad;
+    AdmobAd admobAd;
 
 
     @Override
@@ -117,25 +117,12 @@ public class McqVersion1 extends AppCompatActivity {
         setContentView(layout.activity_mcq_version1_layout);
         Firebase.setAndroidContext(this);
 
-        connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        loadAllAdmobAd();
 
-
-// Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-
-        AdView mADview1 = findViewById(id.mADview1);
-        AdView mADview2 = findViewById(id.mADview2);
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mADview1.loadAd(adRequest);
-        mADview2.loadAd(adRequest);
-
-        //connecting with viewmodel class
-        mcq_viewModel = ViewModelProviders.of(this).get(Mcq_ViewModel.class);
+        mcq_viewModel = new ViewModelProvider(this).get(Mcq_ViewModel.class);
 
         mPost_key = Objects.requireNonNull(getIntent().getExtras()).getString("key_name");
         child_Name = Objects.requireNonNull(getIntent().getExtras()).getString("childName");
-        //Toast.makeText(StudyMCQ.this,mPost_key+child_Name,Toast.LENGTH_SHORT).show();
-
 
         mTxt_quest = findViewById(id.mTxt_quest);
         mTxt_ans = findViewById(id.mTxt_ans);
@@ -168,28 +155,37 @@ public class McqVersion1 extends AppCompatActivity {
         mTxt_Header_topic = findViewById(id.mTxt_Header_topic);
 
         //For Progress bar
-        progressBar2 = (ProgressBar) findViewById(id.mPRone);
+        progressBar2 = findViewById(id.mPRone);
 
 //        headerTopic();
 
         updateLevelStatus(level);
         eachQuestStatus();
         headerTopic();
-
         networkCheck();
         readFromRoomDatabase();
 
+    }
 
+    private void loadAllAdmobAd() {
+        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        //initializing ad - admob - need to be done only once
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        admobAd = new AdmobAd((AdView) findViewById(id.mADview1));
+        admobAd.bannerAd_initialize();
+        interstitial_ad = new Interstitial_ad(getApplicationContext());
+        interstitial_ad.createInterstitial();
+        interstitial_ad.loadInterstitial();
     }
 
     private void networkCheck() {
-        assert connectivityManager != null;
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            Snackbar.make(findViewById(id.mcqView), "Internet is Available...", Snackbar.LENGTH_LONG).show();
-        } else {
-            Snackbar.make(findViewById(id.mcqView), "No Network Connection...", Snackbar.LENGTH_LONG).show();
-        }
+        CheckingNetwork checkingNetwork = new CheckingNetwork(getApplicationContext());
+        checkingNetwork.notifyUser_Snackbar(checkingNetwork.isNetworkAvailable(),
+                findViewById(id.mcqView));
     }
 
     public void headerTopic() {
@@ -198,68 +194,42 @@ public class McqVersion1 extends AppCompatActivity {
                 mTxt_Header_topic.setText("general");
                 break;
             case "10010":
-                mTxt_Header_topic.setText("Chapter 1");
-                break;
             case "10011":
                 mTxt_Header_topic.setText("Chapter 1");
                 break;
             case "10020":
-                mTxt_Header_topic.setText("Chapter 2");
-                break;
             case "10021":
                 mTxt_Header_topic.setText("Chapter 2");
                 break;
             case "10030":
-                mTxt_Header_topic.setText("Chapter 3");
-                break;
             case "10031":
                 mTxt_Header_topic.setText("Chapter 3");
                 break;
             case "10040":
-                mTxt_Header_topic.setText("Chapter 4");
-                break;
             case "10041":
                 mTxt_Header_topic.setText("Chapter 4");
                 break;
             case "10050":
-                mTxt_Header_topic.setText("Chapter 5");
-                break;
             case "10051":
                 mTxt_Header_topic.setText("Chapter 5");
                 break;
             case "10060":
-                mTxt_Header_topic.setText("Chapter 6");
-                break;
             case "10061":
-                mTxt_Header_topic.setText("Chapter 6");
-                break;
             case "10062":
                 mTxt_Header_topic.setText("Chapter 6");
                 break;
             case "10070":
-                mTxt_Header_topic.setText("Chapter 7");
-                break;
             case "10071":
-                mTxt_Header_topic.setText("Chapter 7");
-                break;
             case "10072":
                 mTxt_Header_topic.setText("Chapter 7");
                 break;
             case "10080":
-                mTxt_Header_topic.setText("Chapter 8");
-                break;
             case "10081":
-                mTxt_Header_topic.setText("Chapter 8");
-                break;
             case "10082":
                 mTxt_Header_topic.setText("Chapter 8");
                 break;
             case "10090":
-                mTxt_Header_topic.setText("Chapter 9");
-                break;
             case "10091":
-                mTxt_Header_topic.setText("Chapter 9");
-                break;
             case "10092":
                 mTxt_Header_topic.setText("Chapter 9");
                 break;
@@ -314,16 +284,13 @@ public class McqVersion1 extends AppCompatActivity {
 
     public void updateLevelEachQuestionStatus(int a) {
         if (a < 2) {
-            mTxt_PointEachQ.setText("Primary");
-            //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#80ff1a1a"));
+            mTxt_PointEachQ.setText(string.primary);
             mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
         } else if (a == 2 || a == 3) {
-            mTxt_PointEachQ.setText("Learning");
-            //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#80ffff1a"));
+            mTxt_PointEachQ.setText(string.learning);
             mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_yellow));
         } else {
-            mTxt_PointEachQ.setText("Master");
-            //mTxt_PointEachQ.setBackgroundColor(Color.parseColor("#8033ff33"));
+            mTxt_PointEachQ.setText(string.master);
             mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_green));
         }
     }
@@ -365,7 +332,8 @@ public class McqVersion1 extends AppCompatActivity {
         progreesBarBackgroundVISIBLE();
         disableSUBMITnextPREV();
 //        https://businessresearch-ad180.firebaseio.com/
-        mTotalQ = new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/info/totalQ");
+        Firebase mTotalQ =
+                new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/info/totalQ");
         mTotalQ.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -708,14 +676,14 @@ public class McqVersion1 extends AppCompatActivity {
 
     public void updateLevelStatus(int a) {
         if (a < 2) {
-            mTxt_level.setText("Primary");
+            mTxt_level.setText(getString(string.primary));
             mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_background));
         } else if (a == 2 || a == 3) {
-            mTxt_level.setText("Learning");
+            mTxt_level.setText(getString(string.learning));
             mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_yellow));
         } else {
             //Toast.makeText(McqVersion1.this, "Congratulation, you got the highest mark!", Toast.LENGTH_SHORT).show();
-            mTxt_level.setText("Master");
+            mTxt_level.setText(getString(string.master));
             mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_green));
         }
     }
@@ -3145,5 +3113,17 @@ public class McqVersion1 extends AppCompatActivity {
         }).start();
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        interstitial_ad.showInterstitial();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        interstitial_ad.showInterstitial();
     }
 }
