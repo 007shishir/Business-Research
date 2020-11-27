@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.ads.AdView;
-import java.util.Objects;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +22,6 @@ import java.util.Objects;
 public class OptionsMain extends Fragment implements View.OnClickListener {
 
     private View view;
-    private Interstitial_ad interstitialAd;
 
 
     public OptionsMain() {
@@ -107,9 +104,6 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
      */
     private void callingAndLoading_interstitialAd() {
         //for loading interstitial ad
-        interstitialAd = new Interstitial_ad(Objects.requireNonNull(getContext()));
-        interstitialAd.createInterstitial();
-        interstitialAd.loadInterstitial();
     }
 
     /**
@@ -128,94 +122,76 @@ public class OptionsMain extends Fragment implements View.OnClickListener {
         String url_string;
         switch (v.getId()) {
             case R.id.cTxt_one:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter1.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_two:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter2.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_three:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter3.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_four:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter4.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_five:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter5.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_six:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter6.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_seven:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter7.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_eight:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter8.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.mTxt_mcq:
-                interstitialAd.showInterstitial();
                 NavDirections mcq_action = OptionsMainDirections
                         .actionOptionsMainToMcqRecV();
                 Navigation.findNavController(v).navigate(mcq_action);
                 break;
             case R.id.mTxt_memorize:
-                interstitialAd.showInterstitial();
                 NavDirections mem_action = OptionsMainDirections
                         .actionOptionsMainToMemorizeRecV();
                 Navigation.findNavController(v).navigate(mem_action);
                 break;
             case R.id.cTxt_nine:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter9.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_ten:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter10.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_11:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter11.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_12:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter12.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_13:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter13.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_14:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter14.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_15:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter15.html";
                 fragmentTransaction(v, url_string);
                 break;
             case R.id.cTxt_16:
-                interstitialAd.showInterstitial();
                 url_string = "file:///android_asset/Chapter16.html";
                 fragmentTransaction(v, url_string);
                 break;

@@ -8,6 +8,7 @@ public interface Iinterstitial_Ad {
      * @author Saiful Islam
      * @since 6 March 2020
      * @version 1.0
+     * @deprecated 22 nov 2020
      */
 
     //Initialize the ad

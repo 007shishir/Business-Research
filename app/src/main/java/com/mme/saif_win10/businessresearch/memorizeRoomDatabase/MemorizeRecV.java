@@ -20,9 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mme.saif_win10.businessresearch.Parameter;
 import com.mme.saif_win10.businessresearch.R;
-
-import java.util.Objects;
-
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
 /**
@@ -49,7 +46,7 @@ public class MemorizeRecV extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_memorize_rec_v, container, false);
 
-        connectivityManager = (ConnectivityManager) Objects.requireNonNull(getActivity()).
+        connectivityManager = (ConnectivityManager) requireActivity().
                 getSystemService(CONNECTIVITY_SERVICE);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("memorize");
         mDatabase.keepSynced(false);
@@ -74,12 +71,7 @@ public class MemorizeRecV extends Fragment {
                         viewHolder.setTopic(model.getTopic());
                         viewHolder.setSum(model.getSum());
                         viewHolder.setTotal(model.getTotal());
-                        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                moveToMemoriseClass(post_key);
-                            }
-                        });
+                        viewHolder.mView.setOnClickListener(v -> moveToMemoriseClass(post_key));
 
                     }
                 };
@@ -104,7 +96,7 @@ public class MemorizeRecV extends Fragment {
                     Toast.LENGTH_LONG).show();
             startActivity(intent);
         }else {
-            Snackbar.make(Objects.requireNonNull(getActivity()).
+            Snackbar.make(requireActivity().
                             findViewById(R.id.drawer_layout), "No Network Connection...",
                     Snackbar.LENGTH_LONG).show();
         }

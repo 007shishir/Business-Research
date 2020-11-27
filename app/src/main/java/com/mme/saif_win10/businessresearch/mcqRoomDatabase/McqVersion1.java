@@ -1,5 +1,6 @@
 package com.mme.saif_win10.businessresearch.mcqRoomDatabase;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ import com.google.android.gms.ads.MobileAds;
 
 import com.mme.saif_win10.businessresearch.AdmobAd;
 import com.mme.saif_win10.businessresearch.CheckingNetwork;
-import com.mme.saif_win10.businessresearch.Interstitial_ad;
 import com.mme.saif_win10.businessresearch.MainActivity;
 
 
@@ -107,7 +107,6 @@ public class McqVersion1 extends AppCompatActivity {
     private Button btn_next;
     private Button btn_prev;
     private Button btn_refresh;
-    Interstitial_ad interstitial_ad;
     AdmobAd admobAd;
 
 
@@ -177,9 +176,6 @@ public class McqVersion1 extends AppCompatActivity {
         });
         admobAd = new AdmobAd((AdView) findViewById(id.mADview1));
         admobAd.bannerAd_initialize();
-        interstitial_ad = new Interstitial_ad(getApplicationContext());
-        interstitial_ad.createInterstitial();
-        interstitial_ad.loadInterstitial();
     }
 
     private void networkCheck() {
@@ -234,44 +230,30 @@ public class McqVersion1 extends AppCompatActivity {
                 mTxt_Header_topic.setText("Chapter 9");
                 break;
             case "10100":
-                mTxt_Header_topic.setText("Chapter 10");
-                break;
             case "10101":
                 mTxt_Header_topic.setText("Chapter 10");
                 break;
             case "10110":
-                mTxt_Header_topic.setText("Chapter 11");
-                break;
             case "10111":
                 mTxt_Header_topic.setText("Chapter 11");
                 break;
             case "10120":
-                mTxt_Header_topic.setText("Chapter 12");
-                break;
             case "10121":
                 mTxt_Header_topic.setText("Chapter 12");
                 break;
             case "10130":
-                mTxt_Header_topic.setText("Chapter 13");
-                break;
             case "10131":
                 mTxt_Header_topic.setText("Chapter 13");
                 break;
             case "10140":
-                mTxt_Header_topic.setText("Chapter 14");
-                break;
             case "10141":
                 mTxt_Header_topic.setText("Chapter 14");
                 break;
             case "10150":
-                mTxt_Header_topic.setText("Chapter 15");
-                break;
             case "10151":
                 mTxt_Header_topic.setText("Chapter 15");
                 break;
             case "10160":
-                mTxt_Header_topic.setText("Chapter 16");
-                break;
             case "10161":
                 mTxt_Header_topic.setText("Chapter 16");
                 break;
@@ -285,13 +267,13 @@ public class McqVersion1 extends AppCompatActivity {
     public void updateLevelEachQuestionStatus(int a) {
         if (a < 2) {
             mTxt_PointEachQ.setText(string.primary);
-            mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
+            mTxt_PointEachQ.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_background));
         } else if (a == 2 || a == 3) {
             mTxt_PointEachQ.setText(string.learning);
-            mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_yellow));
+            mTxt_PointEachQ.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_yellow));
         } else {
             mTxt_PointEachQ.setText(string.master);
-            mTxt_PointEachQ.setBackground(getResources().getDrawable(drawable.mcq_question_status_green));
+            mTxt_PointEachQ.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_green));
         }
     }
 
@@ -461,179 +443,169 @@ public class McqVersion1 extends AppCompatActivity {
             }
         });
 
-        mBtn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mBtn_submit.setOnClickListener(v -> {
 
-                String mNextQuest = "NEXT";
-                mBtn_submit.setText(mNextQuest);
-                mBtn_submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String mSubmit = "SUBMIT";
-                        String mAnswer = "ANSWER";
-                        String mExplanation = "Explanation will be here";
-                        String mRightvWrong = "Check";
+            String mNextQuest = "NEXT";
+            mBtn_submit.setText(mNextQuest);
+            mBtn_submit.setOnClickListener(v1 -> {
+                String mSubmit = "SUBMIT";
+                String mAnswer = "ANSWER";
+                String mExplanation = "Explanation will be here";
+                String mRightvWrong = "Check";
+
+                //set Background color for RIGHT v WRONG indicator Text box
+                mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_answer_background));
+
+                mBtn_submit.setText(mSubmit);
+                mTxt_ans.setText(mAnswer);
+                mTxt_expl.setText(mExplanation);
+                mTxt_RIGHTvWRONG.setText(mRightvWrong);
+                mQuestNum++;
+                eachQuestStatus();
+                //findQnumber++;
+                initialState();
+                uncheckOption();
+
+                if (mQuestNum > totalQuestion) {
+                    mQuestNum = 1;
+                    //to make value of int r back to zero
+                    make_int_r_zero();
+                    notificationForTotalPoint();
+                    eachQuestStatus();
+                    cycle++;
+                    totalPoint = 0;
+                    readFromRoomDatabase();
+                    initialState();
+
+                } else {
+                    readFromRoomDatabase();
+                }
+            });
+
+            checkOptionChoice();
+            progreesBarBackgroundVISIBLE();
+            disableSUBMITnextPREV();
+            mAnswer = new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/" + mQuestNum + "/ans");
+            //mAnswer.keepSynced(true);
+            mAnswer.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String answer = dataSnapshot.getValue(String.class);
+
+                    //For database only
+                    ans = answer;
+
+                    if (ansChoice.equals(answer)) {
+                        showResult = "Ans: " + answer;
+                        mTxt_RIGHTvWRONG.setText(string.right);
+                        mTxt_ans.setText(showResult);
+                        //Toast.makeText(McqQuestion.this, "Correct", Toast.LENGTH_SHORT).show();
 
                         //set Background color for RIGHT v WRONG indicator Text box
-                        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
+                        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_green));
 
-                        mBtn_submit.setText(mSubmit);
-                        mTxt_ans.setText(mAnswer);
-                        mTxt_expl.setText(mExplanation);
-                        mTxt_RIGHTvWRONG.setText(mRightvWrong);
-                        mQuestNum++;
-                        eachQuestStatus();
-                        //findQnumber++;
+                        answeredQn = mQuestNum - 1;
+                        totalPoint++;
+
+                        if (level_offline == 0) {
+                            level = levelINCREASE(level);
+                            //For room database use only
+                        } else {
+                            level = levelINCREASE(level_offline);
+                            //For room database use only
+                        }
+                        level_cards = level;
+
+                        //updateLevelStatus(level);
+                        eachQuestStatusSUCCESS();
+
                         initialState();
-                        uncheckOption();
 
-                        if (mQuestNum > totalQuestion) {
-                            mQuestNum = 1;
-                            //to make value of int r back to zero
-                            make_int_r_zero();
-                            notificationForTotalPoint();
-                            eachQuestStatus();
-                            cycle++;
-                            totalPoint = 0;
-                            readFromRoomDatabase();
-                            initialState();
+                    } else if (ansChoice.equals("NoAnswerChoosen")) {
+                        initialState();
+                        showResult = "Ans: " + answer;
+                        mTxt_RIGHTvWRONG.setText(string.wrong);
 
+                        //set Background color for RIGHT v WRONG indicator Text box
+                        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_background));
+
+                        mTxt_ans.setText(showResult);
+                        unAnsweredQN = mQuestNum - 1;
+                        eachQuestStatusFAILURE();
+                        if (level_offline == 0) {
+                            level = levelDECREASE(level);
+                            //For room database use only
                         } else {
-                            readFromRoomDatabase();
+                            level = levelDECREASE(level_offline);
+                            //For room database use only
                         }
-                    }
-                });
+                        level_cards = level;
 
-                checkOptionChoice();
-                progreesBarBackgroundVISIBLE();
-                disableSUBMITnextPREV();
-                mAnswer = new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/" + mQuestNum + "/ans");
-                //mAnswer.keepSynced(true);
-                mAnswer.addValueEventListener(new com.firebase.client.ValueEventListener() {
-                    @Override
-                    public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
-                        String answer = dataSnapshot.getValue(String.class);
+                        //updateLevelStatus(level);
+                        //idEachQuest(child_Name,mPost_key,questionN[unAnsweredQN]);
+                    } else {
+                        showResult = "Ans: " + answer;
+                        mTxt_RIGHTvWRONG.setText(string.wrong);
 
-                        //For database only
-                        ans = answer;
+                        //set Background color for RIGHT v WRONG indicator Text box
+                        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_background));
 
-                        if (ansChoice.equals(answer)) {
-                            showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText(string.right);
-                            mTxt_ans.setText(showResult);
-                            //Toast.makeText(McqQuestion.this, "Correct", Toast.LENGTH_SHORT).show();
+                        mTxt_ans.setText(showResult);
+                        //Toast.makeText(McqQuestion.this, "Wrong Answer, Question No.: " + questionN[unAnsweredQN], Toast.LENGTH_SHORT).show();
 
-                            //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_green));
+                        initialState();
+                        unAnsweredQN = mQuestNum - 1;
+                        eachQuestStatusFAILURE();
 
-                            answeredQn = mQuestNum - 1;
-                            totalPoint++;
-
-                            if (level_offline == 0) {
-                                level = levelINCREASE(level);
-                                //For room database use only
-                                level_cards = level;
-                            } else {
-                                level = levelINCREASE(level_offline);
-                                //For room database use only
-                                level_cards = level;
-                            }
-
-                            //updateLevelStatus(level);
-                            eachQuestStatusSUCCESS();
-
-                            initialState();
-
-                        } else if (ansChoice.equals("NoAnswerChoosen")) {
-                            initialState();
-                            showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText(string.wrong);
-
-                            //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
-
-                            mTxt_ans.setText(showResult);
-                            unAnsweredQN = mQuestNum - 1;
-                            eachQuestStatusFAILURE();
-                            if (level_offline == 0) {
-                                level = levelDECREASE(level);
-                                //For room database use only
-                                level_cards = level;
-                            } else {
-                                level = levelDECREASE(level_offline);
-                                //For room database use only
-                                level_cards = level;
-                            }
-
-                            //updateLevelStatus(level);
-                            //idEachQuest(child_Name,mPost_key,questionN[unAnsweredQN]);
+                        if (level_offline == 0) {
+                            level = levelDECREASE(level);
+                            //For room database use only
                         } else {
-                            showResult = "Ans: " + answer;
-                            mTxt_RIGHTvWRONG.setText(string.wrong);
-
-                            //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
-
-                            mTxt_ans.setText(showResult);
-                            //Toast.makeText(McqQuestion.this, "Wrong Answer, Question No.: " + questionN[unAnsweredQN], Toast.LENGTH_SHORT).show();
-
-                            initialState();
-                            unAnsweredQN = mQuestNum - 1;
-                            eachQuestStatusFAILURE();
-
-                            if (level_offline == 0) {
-                                level = levelDECREASE(level);
-                                //For room database use only
-                                level_cards = level;
-                            } else {
-                                level = levelDECREASE(level_offline);
-                                //For room database use only
-                                level_cards = level;
-                            }
-
-                            //updateLevelStatus(level);
-                            //idEachQuest(child_Name,mPost_key,questionN[unAnsweredQN]);
-
+                            level = levelDECREASE(level_offline);
+                            //For room database use only
                         }
+                        level_cards = level;
+
+                        //updateLevelStatus(level);
+                        //idEachQuest(child_Name,mPost_key,questionN[unAnsweredQN]);
+
                     }
+                }
 
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
 
-                    }
-                });
+                }
+            });
 
 
-                mExplanation = new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/" + mQuestNum + "/e");
-                //mExplanation.keepSynced(true);
-                mExplanation.addValueEventListener(new com.firebase.client.ValueEventListener() {
-                    @Override
-                    public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
-                        String explanation = dataSnapshot.getValue(String.class);
+            mExplanation = new Firebase("https://businessresearch-ad180.firebaseio.com/" + child_Name + "/" + mPost_key + "/" + mQuestNum + "/e");
+            //mExplanation.keepSynced(true);
+            mExplanation.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String explanation = dataSnapshot.getValue(String.class);
 //                        mTxt_expl.setText(explanation);
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            mTxt_expl.setText(Html.fromHtml(explanation, Html.FROM_HTML_MODE_COMPACT));
-                        } else {
-                            mTxt_expl.setText(Html.fromHtml(explanation));
-                        }
-
-                        //For database only
-                        e = explanation;
-                        addQuestionDatabase();
-                        progressBarBackgroundGONE();
-                        enableSUBMITnextPREV();
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        mTxt_expl.setText(Html.fromHtml(explanation, Html.FROM_HTML_MODE_COMPACT));
+                    } else {
+                        mTxt_expl.setText(Html.fromHtml(explanation));
                     }
 
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
+                    //For database only
+                    e = explanation;
+                    addQuestionDatabase();
+                    progressBarBackgroundGONE();
+                    enableSUBMITnextPREV();
 
-                    }
-                });
-            }
+                }
 
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
         });
     }
 
@@ -677,14 +649,14 @@ public class McqVersion1 extends AppCompatActivity {
     public void updateLevelStatus(int a) {
         if (a < 2) {
             mTxt_level.setText(getString(string.primary));
-            mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_background));
+            mTxt_level.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_card_status_background));
         } else if (a == 2 || a == 3) {
             mTxt_level.setText(getString(string.learning));
-            mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_yellow));
+            mTxt_level.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_card_status_yellow));
         } else {
             //Toast.makeText(McqVersion1.this, "Congratulation, you got the highest mark!", Toast.LENGTH_SHORT).show();
             mTxt_level.setText(getString(string.master));
-            mTxt_level.setBackground(getResources().getDrawable(drawable.mcq_card_status_green));
+            mTxt_level.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_card_status_green));
         }
     }
 
@@ -1451,21 +1423,17 @@ public class McqVersion1 extends AppCompatActivity {
     }
 
     public int eachQuestStatusDECREASE(int a) {
-        if (a < 2) {
-            return a;
-        } else {
+        if (a >= 2) {
             a--;
-            return a;
         }
+        return a;
     }
 
     public int levelDECREASE(int a) {
-        if (a < 3) {
-            return a;
-        } else {
+        if (a >= 3) {
             a--;
-            return a;
         }
+        return a;
     }
 
     public void idEachQuest(String a, String b, String c) {
@@ -1584,143 +1552,137 @@ public class McqVersion1 extends AppCompatActivity {
                 next_previous_refresh_forRoomDatabase();
 
 
-                mBtn_submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                mBtn_submit.setOnClickListener(v -> {
 
-                        String mNextQuest = "NEXT";
-                        mBtn_submit.setText(mNextQuest);
-                        mBtn_submit.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                    String mNextQuest = "NEXT";
+                    mBtn_submit.setText(mNextQuest);
+                    mBtn_submit.setOnClickListener(v1 -> {
 
-                                //Changing the text for submit, answer and explanation view
-                                String mSubmit = "SUBMIT";
-                                String mAnswer = "ANSWER";
-                                String mExplanation = "Explanation will be here";
-                                String mRightvWrong = "Check";
+                        //Changing the text for submit, answer and explanation view
+                        String mSubmit = "SUBMIT";
+                        String mAnswer = "ANSWER";
+                        String mExplanation = "Explanation will be here";
+                        String mRightvWrong = "Check";
 
-                                //set Background color for RIGHT v WRONG indicator Text box
-                                mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
+                        //set Background color for RIGHT v WRONG indicator Text box
+                        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_answer_background));
 
-                                mBtn_submit.setText(mSubmit);
-                                mTxt_ans.setText(mAnswer);
-                                mTxt_expl.setText(mExplanation);
-                                mTxt_RIGHTvWRONG.setText(mRightvWrong);
+                        mBtn_submit.setText(mSubmit);
+                        mTxt_ans.setText(mAnswer);
+                        mTxt_expl.setText(mExplanation);
+                        mTxt_RIGHTvWRONG.setText(mRightvWrong);
 
-                                //Increase the question number
-                                mQuestNum++;
+                        //Increase the question number
+                        mQuestNum++;
 //                                eachQuestStatus();
-                                initialState_offline();
+                        initialState_offline();
 
-                                uncheckOption();
+                        uncheckOption();
 
 
-                                if (mQuestNum > totalQuestion) {
-                                    mQuestNum = 1;
+                        if (mQuestNum > totalQuestion) {
+                            mQuestNum = 1;
 
-                                    make_int_r_zero();
-                                    notificationForTotalPoint();
+                            make_int_r_zero();
+                            notificationForTotalPoint();
 //                                    eachQuestStatus();
-                                    countPriLernMast();
-                                    readFromRoomDatabase();
+                            countPriLernMast();
+                            readFromRoomDatabase();
 
-                                    cycle++;
-                                    totalPoint = 0;
-                                    initialState_offline();
-                                } else {
-                                    countPriLernMast();
-                                    readFromRoomDatabase();
-                                }
+                            cycle++;
+                            totalPoint = 0;
+                            initialState_offline();
+                        } else {
+                            countPriLernMast();
+                            readFromRoomDatabase();
+                        }
 
-                            }
-                        });
-
-
-                        checkOptionChoice();
+                    });
 
 
-                        String get_ans = mqe.getAns();
-                        String get_e = mqe.getE();
-                        mTxt_ans.setText(get_ans);
+                    checkOptionChoice();
+
+
+                    String get_ans = mqe.getAns();
+                    String get_e = mqe.getE();
+                    mTxt_ans.setText(get_ans);
 //                        mTxt_expl.setText(get_e);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            mTxt_expl.setText(Html.fromHtml(get_e, Html.FROM_HTML_MODE_COMPACT));
-                        } else {
-                            mTxt_expl.setText(Html.fromHtml(get_e));
-                        }
-
-                        //For Firebase use only
-                        ans = get_ans;
-                        e = get_e;
-
-                        if (ansChoice.equals(get_ans)) {
-                            showResult = "Ans: " + get_ans;
-                            mTxt_ans.setText(showResult);
-
-                            mTxt_RIGHTvWRONG.setText(getResources().getString(string.right));
-                            //Toast.makeText(McqQuestion.this, "Correct", Toast.LENGTH_SHORT).show();
-
-                            //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_green));
-
-                            answeredQn = mQuestNum - 1;
-                            //eachQuestStatusSUCCESS() is replaced with stopRepeatMarkCountSUCCESS() to stop repeat count
-                            //eachQuestStatusSUCCESS();
-                            stopRepeatMarkCountSUCCESS();
-
-                            level_offline = levelINCREASE_offline(level_offline);
-                            //For room database use only
-                            level_cards = level_offline;
-
-                            initialState_offline();
-                            addQuestionDatabase();
-
-
-                        } else if (ansChoice.equals("NoAnswerChoosen")) {
-                            initialState_offline();
-                            showResult = "Ans: " + get_ans;
-                            mTxt_ans.setText(showResult);
-                            mTxt_RIGHTvWRONG.setText(getResources().getString(string.wrong));
-
-                            //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
-
-                            unAnsweredQN = mQuestNum - 1;
-
-                            stopRepeatMarkCountFAILURE();
-                            //eachQuestStatusFAILURE();
-
-                            level_offline = levelDECREASE(level_offline);
-                            //For room database use only
-                            level_cards = level_offline;
-
-                            addQuestionDatabase();
-
-                        } else {
-                            showResult = "Ans: " + get_ans;
-                            mTxt_ans.setText(showResult);
-                            mTxt_RIGHTvWRONG.setText(string.wrong);
-                            //Toast.makeText(McqQuestion.this, "Wrong Answer, Question No.: " + questionN[unAnsweredQN], Toast.LENGTH_SHORT).show();
-
-                            //set Background color for RIGHT v WRONG indicator Text box
-                            mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_question_status_background));
-
-                            initialState_offline();
-                            unAnsweredQN = mQuestNum - 1;
-
-                            stopRepeatMarkCountFAILURE();
-                            //eachQuestStatusFAILURE();
-
-                            level_offline = levelDECREASE(level_offline);
-
-                            //For room database use only
-                            level_cards = level_offline;
-
-                            addQuestionDatabase();
-                        }
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        mTxt_expl.setText(Html.fromHtml(get_e, Html.FROM_HTML_MODE_COMPACT));
+                    } else {
+                        mTxt_expl.setText(Html.fromHtml(get_e));
                     }
+
+                    //For Firebase use only
+                    ans = get_ans;
+                    e = get_e;
+
+                    if (ansChoice.equals(get_ans)) {
+                        showResult = "Ans: " + get_ans;
+                        mTxt_ans.setText(showResult);
+
+                        mTxt_RIGHTvWRONG.setText(getResources().getString(string.right));
+                        //Toast.makeText(McqQuestion.this, "Correct", Toast.LENGTH_SHORT).show();
+
+                        //set Background color for RIGHT v WRONG indicator Text box
+                        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_green));
+
+                        answeredQn = mQuestNum - 1;
+                        //eachQuestStatusSUCCESS() is replaced with stopRepeatMarkCountSUCCESS() to stop repeat count
+                        //eachQuestStatusSUCCESS();
+                        stopRepeatMarkCountSUCCESS();
+
+                        level_offline = levelINCREASE_offline(level_offline);
+                        //For room database use only
+                        level_cards = level_offline;
+
+                        initialState_offline();
+                        addQuestionDatabase();
+
+
+                    } else if (ansChoice.equals("NoAnswerChoosen")) {
+                        initialState_offline();
+                        showResult = "Ans: " + get_ans;
+                        mTxt_ans.setText(showResult);
+                        mTxt_RIGHTvWRONG.setText(getResources().getString(string.wrong));
+
+                        //set Background color for RIGHT v WRONG indicator Text box
+                        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_background));
+
+                        unAnsweredQN = mQuestNum - 1;
+
+                        stopRepeatMarkCountFAILURE();
+                        //eachQuestStatusFAILURE();
+
+                        level_offline = levelDECREASE(level_offline);
+                        //For room database use only
+                        level_cards = level_offline;
+
+                        addQuestionDatabase();
+
+                    } else {
+                        showResult = "Ans: " + get_ans;
+                        mTxt_ans.setText(showResult);
+                        mTxt_RIGHTvWRONG.setText(string.wrong);
+                        //Toast.makeText(McqQuestion.this, "Wrong Answer, Question No.: " + questionN[unAnsweredQN], Toast.LENGTH_SHORT).show();
+
+                        //set Background color for RIGHT v WRONG indicator Text box
+                        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_question_status_background));
+
+                        initialState_offline();
+                        unAnsweredQN = mQuestNum - 1;
+
+                        stopRepeatMarkCountFAILURE();
+                        //eachQuestStatusFAILURE();
+
+                        level_offline = levelDECREASE(level_offline);
+
+                        //For room database use only
+                        level_cards = level_offline;
+
+                        addQuestionDatabase();
+                    }
+
                 });
 
             }
@@ -1782,38 +1744,24 @@ public class McqVersion1 extends AppCompatActivity {
     }
 
     public void next_previous_refresh_forRoomDatabase() {
-        btn_refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String mSubmit = "SUBMIT";
-                String mAnswer = "ANSWER";
-                String mExplanation = "Explanation will be here";
-                String chooseAnswer = "Check";
-                mBtn_submit.setText(mSubmit);
-                mTxt_ans.setText(mAnswer);
-                mTxt_expl.setText(mExplanation);
-                mTxt_RIGHTvWRONG.setText(chooseAnswer);
-                //set Background color for RIGHT v WRONG indicator Text box
-                mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
+        btn_refresh.setOnClickListener(v -> {
+            String mSubmit = "SUBMIT";
+            String mAnswer = "ANSWER";
+            String mExplanation = "Explanation will be here";
+            String chooseAnswer = "Check";
+            mBtn_submit.setText(mSubmit);
+            mTxt_ans.setText(mAnswer);
+            mTxt_expl.setText(mExplanation);
+            mTxt_RIGHTvWRONG.setText(chooseAnswer);
+            //set Background color for RIGHT v WRONG indicator Text box
+            mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_answer_background));
 
-                updateQuestion();
-            }
+            updateQuestion();
         });
 
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onCLICKonNEXT_offline();
-            }
-        });
+        btn_next.setOnClickListener(v -> onCLICKonNEXT_offline());
 
-        btn_prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                onCLICKonPREV_offline();
-            }
-        });
+        btn_prev.setOnClickListener(v -> onCLICKonPREV_offline());
     }
 
     public void onCLICKonNEXT_offline() {
@@ -1824,7 +1772,7 @@ public class McqVersion1 extends AppCompatActivity {
         String mRightvWrong = "Check";
 
         //set Background color for RIGHT v WRONG indicator Text box
-        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
+        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_answer_background));
 
         mBtn_submit.setText(mSubmit);
         mTxt_ans.setText(mAnswer);
@@ -1889,7 +1837,7 @@ public class McqVersion1 extends AppCompatActivity {
         String mRightvWrong = "Check";
 
         //set Background color for RIGHT v WRONG indicator Text box
-        mTxt_RIGHTvWRONG.setBackground(getResources().getDrawable(drawable.mcq_answer_background));
+        mTxt_RIGHTvWRONG.setBackground(ContextCompat.getDrawable(getApplicationContext(), drawable.mcq_answer_background));
         mBtn_submit.setText(mSubmit);
         mTxt_ans.setText(mAnswer);
         mTxt_expl.setText(mExplanation);
@@ -2775,31 +2723,11 @@ public class McqVersion1 extends AppCompatActivity {
     }
 
     public void progreesBarBackgroundVISIBLE() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar2.setVisibility(View.VISIBLE);
-                    }
-                });
-            }
-        }).start();
+        new Thread(() -> handler.post(() -> progressBar2.setVisibility(View.VISIBLE))).start();
     }
 
     public void progressBarBackgroundGONE() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar2.setVisibility(View.GONE);
-                    }
-                });
-            }
-        }).start();
+        new Thread(() -> handler.post(() -> progressBar2.setVisibility(View.GONE))).start();
     }
 
     public void eachQuestStatusSUCCESS_OFFLINE() {
@@ -3079,38 +3007,30 @@ public class McqVersion1 extends AppCompatActivity {
 
         final String customID = child_Name + "_" + mPost_key + "_" + "%";
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        int countPrimary = Mcq_Database.getDatabase(getApplicationContext()).
-                                mcq_q_dao().countPrimaryQuestion(customID);
-                        int countLearning = Mcq_Database.getDatabase(getApplicationContext()).
-                                mcq_q_dao().countLearning(customID);
-                        int countMaster = Mcq_Database.getDatabase(getApplicationContext()).
-                                mcq_q_dao().countMaster(customID);
+        new Thread(() -> handler.post(() -> {
+            int countPrimary = Mcq_Database.getDatabase(getApplicationContext()).
+                    mcq_q_dao().countPrimaryQuestion(customID);
+            int countLearning = Mcq_Database.getDatabase(getApplicationContext()).
+                    mcq_q_dao().countLearning(customID);
+            int countMaster = Mcq_Database.getDatabase(getApplicationContext()).
+                    mcq_q_dao().countMaster(customID);
 //                        int countMaster = totalQ - countPrimary - countLearning;
-                        progressPrimary.setMax(totalQuestion);
-                        progressLearning.setMax(totalQuestion);
-                        progressMaster.setMax(totalQuestion);
-                        progressPrimary.setProgress(countPrimary);
-                        progressLearning.setProgress(countLearning);
-                        progressMaster.setProgress(countMaster);
+            progressPrimary.setMax(totalQuestion);
+            progressLearning.setMax(totalQuestion);
+            progressMaster.setMax(totalQuestion);
+            progressPrimary.setProgress(countPrimary);
+            progressLearning.setProgress(countLearning);
+            progressMaster.setProgress(countMaster);
 
-                        String textPr = "Primary: " + countPrimary + " (out of " + totalQuestion + ")";
-                        String textLr = "Learning: " + countLearning + " (out of " + totalQuestion + ")";
-                        String textMs = "Master: " + countMaster + " (out of " + totalQuestion + ")";
+            String textPr = "Primary: " + countPrimary + " (out of " + totalQuestion + ")";
+            String textLr = "Learning: " + countLearning + " (out of " + totalQuestion + ")";
+            String textMs = "Master: " + countMaster + " (out of " + totalQuestion + ")";
 
-                        mPrimary_Text.setText(textPr);
-                        mLearning_Text.setText(textLr);
-                        mMaster_Text.setText(textMs);
+            mPrimary_Text.setText(textPr);
+            mLearning_Text.setText(textLr);
+            mMaster_Text.setText(textMs);
 
-                    }
-                });
-            }
-        }).start();
+        })).start();
 
 
     }
@@ -3118,12 +3038,10 @@ public class McqVersion1 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        interstitial_ad.showInterstitial();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        interstitial_ad.showInterstitial();
     }
 }

@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mme.saif_win10.businessresearch.Parameter;
 import com.mme.saif_win10.businessresearch.R;
-import java.util.Objects;
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
 
@@ -49,7 +48,7 @@ public class McqRecV extends Fragment {
 
 
 
-        connectivityManager = (ConnectivityManager) Objects.requireNonNull(getActivity()).
+        connectivityManager = (ConnectivityManager) requireActivity().
                 getSystemService(CONNECTIVITY_SERVICE);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("busResearch");
         mDatabase.keepSynced(false);
@@ -74,12 +73,7 @@ public class McqRecV extends Fragment {
                         viewHolder.setTopic(model.getTopic());
                         viewHolder.setSum(model.getSum());
                         viewHolder.setTotal(model.getTotal());
-                        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                moveToMcqVersion1(post_key);
-                            }
-                        });
+                        viewHolder.mView.setOnClickListener(v -> moveToMcqVersion1(post_key));
 
                     }
                 };
@@ -104,7 +98,7 @@ public class McqRecV extends Fragment {
                     "the rotation of your device", Toast.LENGTH_LONG).show();
             startActivity(intent);
         } else {
-            Snackbar.make(Objects.requireNonNull(getActivity()).
+            Snackbar.make(requireActivity().
                     findViewById(R.id.drawer_layout), "No Network Connection...",
                     Snackbar.LENGTH_LONG).show();
         }

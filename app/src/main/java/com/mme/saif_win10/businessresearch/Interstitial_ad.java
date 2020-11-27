@@ -16,6 +16,7 @@ import com.mme.saif_win10.businessresearch.interFace.Iinterstitial_Ad;
  * @author Saiful Islam
  * @since 12 March 2020"
  * @version 1.0
+ * @deprecated 22 nov 2020
  */
 public class Interstitial_ad implements Iinterstitial_Ad {
     private com.google.android.gms.ads.InterstitialAd mInterstitialAd;
@@ -39,12 +40,12 @@ public class Interstitial_ad implements Iinterstitial_Ad {
 
     @Override
     public void createInterstitial() {
-        mInterstitialAd = new com.google.android.gms.ads.InterstitialAd(context);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        mInterstitialAd = new com.google.android.gms.ads.InterstitialAd(context);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         //Below is for the TEST purpose only
-//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-//        mInterstitialAd.setAdUnitId("ca-app-pub-2522810443010389/6580857976"); = Original
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-2522810443010389/6580857976");
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {

@@ -1,6 +1,7 @@
 package com.mme.saif_win10.businessresearch.memorizeRoomDatabase;
 
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -299,30 +300,21 @@ public class MemorizeVersion1 extends AppCompatActivity {
                 }
 
                 clicked = true;
-                mTxt_known.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clicked = false;
-                        next_Q_or_not_KNOWN_offline();
-                    }
+                mTxt_known.setOnClickListener(v -> {
+                    clicked = false;
+                    next_Q_or_not_KNOWN_offline();
                 });
 
 
-                mTxt_unknown.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clicked = false;
+                mTxt_unknown.setOnClickListener(v -> {
+                    clicked = false;
 
-                        next_Q_or_not_unknown_OFFLINE();
-                    }
+                    next_Q_or_not_unknown_OFFLINE();
                 });
 
-                mTxt_Submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        clicked = true;
-                        next_Q_or_not_SUBMIT_offline();
-                    }
+                mTxt_Submit.setOnClickListener(v -> {
+                    clicked = true;
+                    next_Q_or_not_SUBMIT_offline();
                 });
 
             }
@@ -417,14 +409,14 @@ public class MemorizeVersion1 extends AppCompatActivity {
     public void updateLevelStatus(int a) {
         if (a < 2) {
             mTxt_level.setText(getResources().getString(R.string.primary));
-            mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_background));
+            mTxt_level.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.mcq_card_status_background));
         } else if (a == 2 || a == 3) {
             mTxt_level.setText(getResources().getString(R.string.learning));
-            mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_yellow));
+            mTxt_level.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.mcq_card_status_yellow));
         } else {
             //Toast.makeText(MemorizeVersion1.this, "Congratulation, you got the highest mark!", Toast.LENGTH_SHORT).show();
             mTxt_level.setText(getResources().getString(R.string.master));
-            mTxt_level.setBackground(getResources().getDrawable(R.drawable.mcq_card_status_green));
+            mTxt_level.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.mcq_card_status_green));
         }
     }
 
@@ -453,12 +445,10 @@ public class MemorizeVersion1 extends AppCompatActivity {
     }
 
     public int levelDECREASE(int a) {
-        if (a < 3) {
-            return a;
-        } else {
+        if (a >= 3) {
             a--;
-            return a;
         }
+        return a;
     }
 
     public void eachQuestStatus() {
@@ -2005,12 +1995,10 @@ public class MemorizeVersion1 extends AppCompatActivity {
     }
 
     public int eachQuestStatusDECREASE(int a) {
-        if (a < 2) {
-            return a;
-        } else {
+        if (a >= 2) {
             a--;
-            return a;
         }
+        return a;
     }
 
     public void make_int_r_zero() {
@@ -2176,35 +2164,26 @@ public class MemorizeVersion1 extends AppCompatActivity {
         progressBarBackgroundGONE();
 
         clicked = true;
-        mTxt_known.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clicked = false;
-                eachQuestStatus();
-                next_Q_or_not_KNOWN();
-                readFromDatabase();
-            }
+        mTxt_known.setOnClickListener(v -> {
+            clicked = false;
+            eachQuestStatus();
+            next_Q_or_not_KNOWN();
+            readFromDatabase();
         });
 
 
-        mTxt_unknown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clicked = false;
-                eachQuestStatus();
-                next_Q_or_not_unknown();
-                readFromDatabase();
-            }
+        mTxt_unknown.setOnClickListener(v -> {
+            clicked = false;
+            eachQuestStatus();
+            next_Q_or_not_unknown();
+            readFromDatabase();
         });
 
-        mTxt_Submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clicked = true;
-                next_Q_or_not_SUBMIT();
+        mTxt_Submit.setOnClickListener(v -> {
+            clicked = true;
+            next_Q_or_not_SUBMIT();
 
-                eachQuestStatus();
-            }
+            eachQuestStatus();
         });
 
     }
@@ -2215,22 +2194,16 @@ public class MemorizeVersion1 extends AppCompatActivity {
     }
 
     public void progressBarBackgroundGONE() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar2.setVisibility(View.GONE);
-                        mTxt_Submit.setClickable(true);
-                    }
-                });
+        new Thread(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            handler.post(() -> {
+                progressBar2.setVisibility(View.GONE);
+                mTxt_Submit.setClickable(true);
+            });
         }).start();
     }
 
@@ -3635,38 +3608,30 @@ public class MemorizeVersion1 extends AppCompatActivity {
 
         final String customID = child_Name + "_" + mPost_key + "_" + "%";
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        int countPrimary = Memorize_database.getINSTANCE(getApplicationContext()).
-                                memorize_dao().countPrimaryQuestion(customID);
-                        int countLearning = Memorize_database.getINSTANCE(getApplicationContext()).
-                                memorize_dao().countLearning(customID);
-                        int countMaster = Memorize_database.getINSTANCE(getApplicationContext()).
-                                memorize_dao().countMaster(customID);
+        new Thread(() -> handler.post(() -> {
+            int countPrimary = Memorize_database.getINSTANCE(getApplicationContext()).
+                    memorize_dao().countPrimaryQuestion(customID);
+            int countLearning = Memorize_database.getINSTANCE(getApplicationContext()).
+                    memorize_dao().countLearning(customID);
+            int countMaster = Memorize_database.getINSTANCE(getApplicationContext()).
+                    memorize_dao().countMaster(customID);
 //                        int countMaster = totalQ - countPrimary - countLearning;
-                        progressPrimary.setMax(totalQ);
-                        progressLearning.setMax(totalQ);
-                        progressMaster.setMax(totalQ);
-                        progressPrimary.setProgress(countPrimary);
-                        progressLearning.setProgress(countLearning);
-                        progressMaster.setProgress(countMaster);
+            progressPrimary.setMax(totalQ);
+            progressLearning.setMax(totalQ);
+            progressMaster.setMax(totalQ);
+            progressPrimary.setProgress(countPrimary);
+            progressLearning.setProgress(countLearning);
+            progressMaster.setProgress(countMaster);
 
-                        String textPr = "Primary: " + countPrimary + " (out of " + totalQ + ")";
-                        String textLr = "Learning: " + countLearning + " (out of " + totalQ + ")";
-                        String textMs = "Master: " + countMaster + " (out of " + totalQ + ")";
+            String textPr = "Primary: " + countPrimary + " (out of " + totalQ + ")";
+            String textLr = "Learning: " + countLearning + " (out of " + totalQ + ")";
+            String textMs = "Master: " + countMaster + " (out of " + totalQ + ")";
 
-                        mPrimary_Text.setText(textPr);
-                        mLearning_Text.setText(textLr);
-                        mMaster_Text.setText(textMs);
+            mPrimary_Text.setText(textPr);
+            mLearning_Text.setText(textLr);
+            mMaster_Text.setText(textMs);
 
-                    }
-                });
-            }
-        }).start();
+        })).start();
     }
 
     public void networkCheck() {

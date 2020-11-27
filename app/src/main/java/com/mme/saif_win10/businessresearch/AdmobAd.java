@@ -14,7 +14,7 @@ import com.google.android.gms.ads.AdView;
  */
 
 public class AdmobAd {
-    private AdView adView;
+    private final AdView adView;
 
     /**
      * This is the constructor should be called to use this class for the first time
@@ -36,11 +36,6 @@ public class AdmobAd {
             @Override
             public void onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
             }
 
             @Override
